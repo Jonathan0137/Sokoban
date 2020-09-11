@@ -8,8 +8,12 @@ def mainMenu(display):
     pygame.mixer.music.play(-1) #PLAYS MUSIC -1 MEANS IN LOOP
     while mainMenuOn: #THE LOOP THAT DOES THE CONSTANT USER INPUT CHECKS AND DRAWS
         pygame.time.delay(10) #This is the function that creates a time delay of x milliseconds
-        display.blit(background_image, (0,0)) #DRAWS THE BACKGROUND IMAGE ONTO THE DISPLAY
+        display.blit(background_image, (0,0)) #DRAWS THE BACKGROUND IMAGE
         pygame.display.update()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return False
 
         keys = pygame.key.get_pressed()
 
