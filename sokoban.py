@@ -1,4 +1,5 @@
 import pygame
+from menu import *
 from pygame import image as img
 from worker import worker
 pygame.init()
@@ -26,6 +27,7 @@ run = True
 while run:
     #refresh rate
     clock.tick(27)
+    run = mainMenu(window)
     # exit button works
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
