@@ -25,23 +25,26 @@ class Level(object):
         worker_right = img.load('pic/worker_right.png')
         worker_up = img.load('pic/worker_up.png')
 
-        images = {'0': ground, '1': wall, '2': box, '3': targetGround}
+        images = {'0': ground, '1': wall, '2': box, '3': targetGround, '4': box_in_correct_location}
         
         box_size = 64
         #Draw worker
-        worker_location = ((int(self.matrix[1][0]))*box_size, (int(self.matrix[1][1])+2)*box_size)
+        worker_location = ((int(self.matrix[1][0]))*box_size, (int(self.matrix[1][1]))*box_size)
         
 
         #Draw wall ground box and targetGround
         # Iterate all Rows
-        for i in range (2, int(self.matrix[0][0])+2):
+        for i in range (2, int(self.matrix[0][1])+2):
             # Iterate all columns of the row
-            for c in range (0, int(self.matrix[0][1])):
-                if(c*box_size == worker_location[0] and i*box_size == worker_location[1]):
+            for c in range (0, int(self.matrix[0][0])):
+                if(c*box_size == worker_location[0] and (i-2)*box_size == worker_location[1]):
                     window.blit(ground, worker_location)
                     window.blit(worker_down, worker_location)
                 else:
-                    window.blit(images[self.matrix[i][c]], (c*box_size, i*box_size))
-                pygame.display.update()
+                    window.blit(images[self.matrix[i][c]], (c*box_size, (i-2)*box_size))
+        pygame.display.update()
 
-
+    def screen_size(self):
+        x = int(self.matrix[0][0])
+        y = int(self.matrix[0][1])
+        return (x * 64, y * 64)
