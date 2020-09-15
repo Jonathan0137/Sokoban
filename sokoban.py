@@ -19,7 +19,7 @@ run = True
 while run:
     
     clock.tick(27) #refresh rate
-    #run = mainMenu(window) #load main menu
+    run = mainMenu(window) #load main menu
     
     for event in pygame.event.get(): # exit button works
         if event.type == pygame.QUIT:
