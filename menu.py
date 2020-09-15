@@ -82,8 +82,9 @@ def optionsScreen(window):
     #pygame.mixer.music.load('mainmenusong.wav') #LOADS MUSIC
     #pygame.mixer.music.play(-1) #PLAYS MUSIC -1 MEANS IN LOOP
 
-    window_size_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//16, window.get_height()//5), (6 * window.get_width()//16, window.get_height()//5)),
-                                             text='Window Size',
+    temp_list_screen_size = ["640x480", "800x600", "1024x768"]
+
+    window_size_button = pygame_gui.elements.UIDropDownMenu(temp_list_screen_size, temp_list_screen_size[0], relative_rect=pygame.Rect((window.get_width()//16, window.get_height()//5), (6 * window.get_width()//16, window.get_height()//5)),
                                              manager=manager)
 
     music_option_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//16, 3*window.get_height()//5), (6 * window.get_width()//16, window.get_height()//5)),
@@ -122,7 +123,8 @@ def optionsScreen(window):
             #CHECKS QUIT BUTTON
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    return button_to_status[event.ui_element]
+                    if event.ui_element == quit_button:
+                        return button_to_status[event.ui_element]
             manager.process_events(event)
 
         window.fill((255,255,255))
