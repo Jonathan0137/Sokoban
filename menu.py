@@ -4,9 +4,10 @@ import pygame_gui
 
 pygame.init()
 
-def mainMenu(window):
+"""Function draws the main menu screen"""
+def mainMenuScreen(window):
 
-    manager = pygame_gui.UIManager((window.get_width(), window.get_height())) 
+    manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
 
     mainMenuOn = True #CHECKS THAT THE MENU SHOULD BE DISPLAYED   <---- PROBABLY WILL DELETE
 
@@ -41,6 +42,13 @@ def mainMenu(window):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return False
+
+
+            #CHECKS QUIT BUTTON
+            if event.type == pygame.USEREVENT:
+                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    if event.ui_element == quit_button:
+                        return "exit"
             manager.process_events(event)
 
         keys = pygame.key.get_pressed()
@@ -52,8 +60,4 @@ def mainMenu(window):
         manager.draw_ui(window)
         pygame.display.update()
 
-    return False
-
-
-
-
+    return "exit"
