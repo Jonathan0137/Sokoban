@@ -44,8 +44,6 @@ def mainMenuScreen(window):
 
     while True: #THE LOOP THAT DOES THE CONSTANT USER INPUT CHECKS AND DRAWS
         pygame.time.delay(10) #This is the function that creates a time delay of x milliseconds
-        window.fill((0,0,0))
-        window.blit(background_image, (0,0)) #DRAWS THE BACKGROUND IMAGE
 
         time_delta = clock.tick(60)/1000.0
         
@@ -68,7 +66,9 @@ def mainMenuScreen(window):
                         return status_check
             manager.process_events(event)
 
-
+        
+        window.fill((0,0,0))
+        window.blit(background_image, (0,0)) #DRAWS THE BACKGROUND IMAGE
         manager.update(time_delta)
         manager.draw_ui(window)
         pygame.display.update()
@@ -101,7 +101,7 @@ def optionsScreen(window):
                                              manager=manager)
 
     button_to_status = {
-        #window_size_button : "Options", #THE VALUE LINKED TO THE KEY SHOULD BE A FUNCTION THAT MODIFIES PROPERTIES OF GAME
+        window_size_button : "Options", #THE VALUE LINKED TO THE KEY SHOULD BE A FUNCTION THAT MODIFIES PROPERTIES OF GAME
         music_option_button : "Options", #THE VALUE LINKED TO THE KEY SHOULD BE A FUNCTION THAT MODIFIES PROPERTIES OF GAME
         sound_effects_option_button : "Options", #THE VALUE LINKED TO THE KEY SHOULD BE A FUNCTION THAT MODIFIES PROPERTIES OF GAME
         back_button : "back"
@@ -122,8 +122,10 @@ def optionsScreen(window):
             #CHECKS BUTTON INPUT
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    current_status = button_to_status[event.ui_element]
-                    return current_status
+                    if event.ui_element != window_size_button:
+                        current_status = button_to_status[event.ui_element]
+                        if current_status == "back":
+                            return current_status
             manager.process_events(event)
 
         window.fill((255,255,255))
