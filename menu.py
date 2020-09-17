@@ -88,8 +88,7 @@ def optionsScreen(window):
 
     temp_list_screen_size = ["640x480", "800x600", "1024x768"]
 
-    window_resize_button = pygame_gui.elements.UIDropDownMenu(temp_list_screen_size, temp_list_screen_size[0], relative_rect=pygame.Rect((window.get_width()//16, window.get_height()//5), (6 * window.get_width()//16, window.get_height()//5)),
-                                             manager=manager)
+    
 
     music_option_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//16, 3*window.get_height()//5), (6 * window.get_width()//16, window.get_height()//5)),
                                              text='Music (on/off)',
@@ -102,9 +101,11 @@ def optionsScreen(window):
     back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((9 * window.get_width()//16, 3*window.get_height()//5), (6 * window.get_width()//16, window.get_height()//5)),
                                              text='Back',
                                              manager=manager)
+                                             
+    window_resize_button = pygame_gui.elements.UIDropDownMenu(temp_list_screen_size, temp_list_screen_size[0], relative_rect=pygame.Rect((window.get_width()//16, window.get_height()//5), (6 * window.get_width()//16, window.get_height()//5)),
+                                             manager=manager)
 
     button_to_status = {
-        window_resize_button : "Options", #THE VALUE LINKED TO THE KEY SHOULD BE A FUNCTION THAT MODIFIES PROPERTIES OF GAME
         music_option_button : "Options", #THE VALUE LINKED TO THE KEY SHOULD BE A FUNCTION THAT MODIFIES PROPERTIES OF GAME
         sound_effects_option_button : "Options", #THE VALUE LINKED TO THE KEY SHOULD BE A FUNCTION THAT MODIFIES PROPERTIES OF GAME
         back_button : "back"
@@ -125,15 +126,12 @@ def optionsScreen(window):
             #CHECKS BUTTON INPUT
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element == window_resize_button:
-                        print("WE GOT TO HERE")
-                    else:
-                        print("WE GOT TO HERE EVENT THOUGH WE WERENT SUPPOSED TO")
-                        print(event.ui_element)
+                    try:
                         current_status = button_to_status[event.ui_element]
                         if current_status == "back":
                             return current_status
-                    
+                    except:
+                        print("TO DO: ADD LOGIC FOR DROP DOWN MENU")
             manager.process_events(event)
 
         window.fill((255,255,255))
@@ -153,12 +151,12 @@ def gameMenuScreen(window):
     #pygame.mixer.music.play(-1) #PLAYS MUSIC -1 MEANS IN LOOP
 
 
-    continue_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - window.get_width()//6, window.get_height()//4), (window.get_width()//3, window.get_height()//8)),
-                                            text='Continue',
+    level_select_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - window.get_width()//6, window.get_height()//4), (window.get_width()//3, window.get_height()//8)),
+                                            text='Level Select',
                                             manager=manager)
 
-    level_select_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - window.get_width()//6, 2*window.get_height()//4), (window.get_width()//3, window.get_height()//8)),
-                                            text='Level Select',
+    help_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - window.get_width()//6, 2*window.get_height()//4), (window.get_width()//3, window.get_height()//8)),
+                                            text='How To Play',
                                             manager=manager)
 
     back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - window.get_width()//6, 3*window.get_height()//4), (window.get_width()//3, window.get_height()//8)),
