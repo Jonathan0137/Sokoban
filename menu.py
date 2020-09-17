@@ -13,7 +13,7 @@ def mainMenuScreen(window):
 
     manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
 
-    background_image_file = open("Legend.jpg")
+    background_image_file = open("menubackground.png")
     background_image = pygame.image.load(background_image_file) #LOADS BACKGROUND IMAGE
 
     #pygame.mixer.music.load('Journey.mp3') #LOADS MUSIC
@@ -83,9 +83,12 @@ def optionsScreen(window):
     #pygame.mixer.music.load('mainmenusong.wav') #LOADS MUSIC
     #pygame.mixer.music.play(-1) #PLAYS MUSIC -1 MEANS IN LOOP
 
+    background_image_file = open("menubackground.png")
+    background_image = pygame.image.load(background_image_file)
+
     temp_list_screen_size = ["640x480", "800x600", "1024x768"]
 
-    window_size_button = pygame_gui.elements.ui_drop_down_menu.UIDropDownMenu(temp_list_screen_size, temp_list_screen_size[0], relative_rect=pygame.Rect((window.get_width()//16, window.get_height()//5), (6 * window.get_width()//16, window.get_height()//5)),
+    window_resize_button = pygame_gui.elements.UIDropDownMenu(temp_list_screen_size, temp_list_screen_size[0], relative_rect=pygame.Rect((window.get_width()//16, window.get_height()//5), (6 * window.get_width()//16, window.get_height()//5)),
                                              manager=manager)
 
     music_option_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//16, 3*window.get_height()//5), (6 * window.get_width()//16, window.get_height()//5)),
@@ -101,7 +104,7 @@ def optionsScreen(window):
                                              manager=manager)
 
     button_to_status = {
-        window_size_button : "Options", #THE VALUE LINKED TO THE KEY SHOULD BE A FUNCTION THAT MODIFIES PROPERTIES OF GAME
+        window_resize_button : "Options", #THE VALUE LINKED TO THE KEY SHOULD BE A FUNCTION THAT MODIFIES PROPERTIES OF GAME
         music_option_button : "Options", #THE VALUE LINKED TO THE KEY SHOULD BE A FUNCTION THAT MODIFIES PROPERTIES OF GAME
         sound_effects_option_button : "Options", #THE VALUE LINKED TO THE KEY SHOULD BE A FUNCTION THAT MODIFIES PROPERTIES OF GAME
         back_button : "back"
@@ -122,13 +125,19 @@ def optionsScreen(window):
             #CHECKS BUTTON INPUT
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    if event.ui_element != window_size_button:
+                    if event.ui_element == window_resize_button:
+                        print("WE GOT TO HERE")
+                    else:
+                        print("WE GOT TO HERE EVENT THOUGH WE WERENT SUPPOSED TO")
+                        print(event.ui_element)
                         current_status = button_to_status[event.ui_element]
                         if current_status == "back":
                             return current_status
+                    
             manager.process_events(event)
 
         window.fill((255,255,255))
+        window.blit(background_image, (0,0))
         manager.update(time_delta)
         manager.draw_ui(window)
         pygame.display.update()
@@ -137,7 +146,7 @@ def optionsScreen(window):
 def gameMenuScreen(window):
     manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
 
-    background_image_file = open("Legend.jpg")
+    background_image_file = open("menubackground.png")
     background_image = pygame.image.load(background_image_file) #LOADS BACKGROUND IMAGE
 
     #pygame.mixer.music.load('Journey.mp3') #LOADS MUSIC
@@ -176,6 +185,7 @@ def gameMenuScreen(window):
             manager.process_events(event)
 
         window.fill((255,196,0))
+        window.blit(background_image, (0,0))
         manager.update(time_delta)
         manager.draw_ui(window)
         pygame.display.update()
