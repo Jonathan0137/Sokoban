@@ -8,6 +8,41 @@ pygame.init()
 def exitGame(window):
     return "exit"
 
+def level_select_menu(window):
+    manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
+
+    background_image_file = open("menubackground.png")
+    background_image = pygame.image.load(background_image_file) #LOADS BACKGROUND IMAGE
+
+    back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((12* window.get_width()//16, 9*window.get_height()//10), (3*window.get_width()//16, window.get_height()//16)),
+                                            text='Back',
+                                            manager=manager)
+
+    clock = pygame.time.Clock()
+
+    while True: #THE LOOP THAT DOES THE CONSTANT USER INPUT CHECKS AND DRAWS
+        pygame.time.delay(10) #This is the function that creates a time delay of x milliseconds
+        time_delta = clock.tick(60)/1000.0
+        
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return "exit"
+
+
+            #CHECKS BUTTON INPUT
+            if event.type == pygame.USEREVENT:
+                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    #current_status = button_to_status[event.ui_element]
+                    return "back"
+            manager.process_events(event)
+
+        window.fill((255,196,0))
+        window.blit(background_image, (0,0))
+        manager.update(time_delta)
+        manager.draw_ui(window)
+        pygame.display.update()
+
 """Function draws the main menu screen"""
 def mainMenuScreen(window):
 
@@ -163,6 +198,12 @@ def gameMenuScreen(window):
                                             text='Back',
                                             manager=manager)
 
+    button_to_status = {
+        level_select_button : level_select_menu, #THE VALUE LINKED TO THE KEY SHOULD BE A FUNCTION THAT MODIFIES PROPERTIES OF GAME
+        help_button : help_menu, #THE VALUE LINKED TO THE KEY SHOULD BE A FUNCTION THAT MODIFIES PROPERTIES OF GAME
+        back_button : "back"
+    }
+
     clock = pygame.time.Clock()
 
     while True: #THE LOOP THAT DOES THE CONSTANT USER INPUT CHECKS AND DRAWS
@@ -178,8 +219,48 @@ def gameMenuScreen(window):
             #CHECKS BUTTON INPUT
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    current_status = "back"
-                    return current_status
+                    if event.ui_element == back_button:
+                        return "back"
+                    else:
+                        current_status = button_to_status[event.ui_element](window)
+                        if current_status != "back":
+                            return current_status
+            manager.process_events(event)
+
+        window.fill((255,196,0))
+        window.blit(background_image, (0,0))
+        manager.update(time_delta)
+        manager.draw_ui(window)
+        pygame.display.update()
+
+
+def help_menu(window):
+    manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
+
+    background_image_file = open("menubackground.png")
+    background_image = pygame.image.load(background_image_file) #LOADS BACKGROUND IMAGE
+
+    back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((12* window.get_width()//16, 9*window.get_height()//10), (3*window.get_width()//16, window.get_height()//16)),
+                                            text='Back',
+                                            manager=manager)
+
+    clock = pygame.time.Clock()
+
+    while True: #THE LOOP THAT DOES THE CONSTANT USER INPUT CHECKS AND DRAWS
+        pygame.time.delay(10) #This is the function that creates a time delay of x milliseconds
+        time_delta = clock.tick(60)/1000.0
+        
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return "exit"
+
+
+            #CHECKS BUTTON INPUT
+            if event.type == pygame.USEREVENT:
+                if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    #current_status = button_to_status[event.ui_element]
+                    return "back"
             manager.process_events(event)
 
         window.fill((255,196,0))
