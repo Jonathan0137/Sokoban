@@ -20,19 +20,19 @@ def level_select_menu(window):
     background_image_file = open("menubackground.png")
     background_image = pygame.image.load(background_image_file) #LOADS BACKGROUND IMAGE
 
-    back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((12* window.get_width()//16, 9*window.get_height()//10), (3*window.get_width()//16, window.get_height()//16)),
+    back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((99* window.get_width()//128, 293*window.get_height()//320), (3*window.get_width()//16, window.get_height()//16)),
                                             text='Back',
                                             manager=manager)
-    left_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//4 - 3*window.get_width()//32, 3*window.get_height()//4), (3*window.get_width()//16, window.get_height()//16)),
+    left_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//4 - 3*window.get_width()//32, 10*window.get_height()//12), (3*window.get_width()//16, window.get_height()//16)),
                                             text='<--',
                                             manager=manager)
-    play_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - 3*window.get_width()//32, 3*window.get_height()//4), (3*window.get_width()//16, window.get_height()//16)),
+    play_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - 3*window.get_width()//32, 10*window.get_height()//12), (3*window.get_width()//16, window.get_height()//16)),
                                             text='Play',
                                             manager=manager)
-    right_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((3*window.get_width()//4 - 3*window.get_width()//32, 3*window.get_height()//4), (3*window.get_width()//16, window.get_height()//16)),
+    right_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((3*window.get_width()//4 - 3*window.get_width()//32, 10*window.get_height()//12), (3*window.get_width()//16, window.get_height()//16)),
                                             text='-->',
                                             manager=manager)
-    placeholderting = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//4 - 3*window.get_width()//32, window.get_height()//8), (22*window.get_width()//32, 5*window.get_height()//8)),
+    placeholderting = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//4 - 3*window.get_width()//32, window.get_height()//6), (22*window.get_width()//32, 5*window.get_height()//8)),
                                             text='PLACEHOLDER FOR MINI SCREEN SIZE AND X/Y COORDINATES',
                                             manager=manager)
 
