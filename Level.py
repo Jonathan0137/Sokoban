@@ -51,23 +51,24 @@ class Level(object):
 
         images = {'0': ground, '1': wall, '2': box, '3': targetGround, '4': box_in_correct_location}
         box_size = 64
-
-        workerCorr = (self.worker_location[0]*box_size , self.worker_location[1]*box_size)
-        
+        startingCorr = self.findStartingCord(window, box_size)
+        workerCorr = (startingCorr[0]+self.worker_location[0]*box_size , startingCorr[1]+self.worker_location[1]*box_size)
 
         # Iterate all Rows
         for i in range (2, int(self.matrix[0][1])+2):
             # Iterate all columns of the row
             for c in range (0, int(self.matrix[0][0])):
-                if(c*box_size == workerCorr[0] and (i-2)*box_size == workerCorr[1]):
+                if(i == 2 and c == 0):# first block
+                    window.blit(wall, startingCorr)
+                elif(startingCorr[0] + c*box_size == workerCorr[0] and startingCorr[1] + (i-2)*box_size == workerCorr[1]):
                     window.blit(ground, workerCorr)
                     self.workerSprite(window, self.direction, workerCorr)
                 elif(self.matrix[i][c] == '3'):
-                    window.blit(ground, (c*box_size, (i-2)*box_size))
-                    window.blit(images[self.matrix[i][c]], (c*box_size, (i-2)*box_size))
+                    window.blit(ground, (startingCorr[0] + c*box_size, startingCorr[1] + (i-2)*box_size))
+                    window.blit(images[self.matrix[i][c]], (startingCorr[0] + c*box_size, startingCorr[1] + (i-2)*box_size))
 
                 else:
-                    window.blit(images[self.matrix[i][c]], (c*box_size, (i-2)*box_size))
+                    window.blit(images[self.matrix[i][c]], (startingCorr[0] + c*box_size, startingCorr[1] + (i-2)*box_size))
         pygame.display.update()
 
     def workerSprite(self, window, direction, workerCorr):
@@ -89,6 +90,20 @@ class Level(object):
     def LevelComplete(self):
         if self.getUnPlacedBoxes(self.getSimpleMatrix()) == 0:
             return True
+
+
+    def findStartingCord(self, window, box_size):
+
+        w, h = pygame.display.get_surface().get_size()
+        
+        game_row = int(self.matrix[0][0])/2 
+        game_col = int(self.matrix[0][1])/2 
+
+        game_midpoint = (game_row, game_col)
+        startingCorr = (w/2 - game_row*box_size, h/2 - game_col*box_size)
+
+        return startingCorr
+
 
 
 
