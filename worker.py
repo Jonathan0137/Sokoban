@@ -7,9 +7,9 @@ class worker(object):
     def moveWorkerCorr(self, x, y):
         self.x = x
         self.y = y
-    def update(self, myLevel, Simplematrix):
+    def update(self, myLevel, Simplematrix, direction):
         myLevel.updateMatrixGivenSimpleMatrix(Simplematrix)
-        myLevel.updateWorkerLocation(self.x, self.y)
+        myLevel.updateWorkerLocation(self.x, self.y, direction)
 
     def find_type_of_object(self, box):
         if(box == '0'):
@@ -76,6 +76,6 @@ class worker(object):
             #print("+++++++++MOVING right++++++++++")
             self.moveContent(1, 0, Simplematrix)
 
-        self.update(myLevel, Simplematrix)
+        self.update(myLevel, Simplematrix, direction)
 
 

@@ -4,6 +4,7 @@ class Level(object):
 
     matrix = []
     SimpleMatrix = []
+    direction = "down"
     def __init__(self,level_num):
         self.currentLevel = level_num
         
@@ -25,8 +26,9 @@ class Level(object):
     def getWorkerLocation(self):
         return self.worker_location
 
-    def updateWorkerLocation(self, x:int, y:int):
+    def updateWorkerLocation(self, x:int, y:int, direction:str):
         self.worker_location = (x, y)
+        self.direction = direction
 
     def updateMatrixGivenSimpleMatrix(self, SimpleMatrix):
         self.matrix[2:] = SimpleMatrix
@@ -46,10 +48,6 @@ class Level(object):
         ground = img.load('pic/ground.png')
         targetGround = img.load('pic/targetGround.png')
         wall = img.load('pic/wall.png')
-        worker_down = img.load('pic/worker_down.png')
-        worker_left = img.load('pic/worker_left.png')
-        worker_right = img.load('pic/worker_right.png')
-        worker_up = img.load('pic/worker_up.png')
 
         images = {'0': ground, '1': wall, '2': box, '3': targetGround, '4': box_in_correct_location}
         box_size = 64
@@ -63,7 +61,7 @@ class Level(object):
             for c in range (0, int(self.matrix[0][0])):
                 if(c*box_size == workerCorr[0] and (i-2)*box_size == workerCorr[1]):
                     window.blit(ground, workerCorr)
-                    window.blit(worker_down, workerCorr)
+                    self.workerSprite(window, self.direction, workerCorr)
                 elif(self.matrix[i][c] == '3'):
                     window.blit(ground, (c*box_size, (i-2)*box_size))
                     window.blit(images[self.matrix[i][c]], (c*box_size, (i-2)*box_size))
@@ -72,6 +70,22 @@ class Level(object):
                     window.blit(images[self.matrix[i][c]], (c*box_size, (i-2)*box_size))
         pygame.display.update()
 
+    def workerSprite(self, window, direction, workerCorr):
+
+        worker_down = img.load('pic/worker_down.png')
+        worker_left = img.load('pic/worker_left.png')
+        worker_right = img.load('pic/worker_right.png')
+        worker_up = img.load('pic/worker_up.png')
+        if (direction == "up"):
+            window.blit(worker_up, workerCorr)
+        elif (direction == "down"):
+            window.blit(worker_down, workerCorr)
+        elif (direction == "left"):
+            window.blit(worker_left, workerCorr)
+        else:
+            window.blit(worker_right, workerCorr)
+
+    
     def LevelComplete(self):
         if self.getUnPlacedBoxes(self.getSimpleMatrix()) == 0:
             return True
