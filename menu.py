@@ -2,6 +2,7 @@
 import pygame
 import pygame_gui
 import os
+from Level import *
 
 
 pygame.init()
@@ -13,8 +14,7 @@ def exitGame(window):
 def level_select_menu(window):
     index = 0
     entries = os.listdir('level/')
-    entries.sort()
-    print(entries)
+    number_of_levels = len(entries) - 1
     manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
 
     background_image_file = open("menubackground.png")
@@ -23,44 +23,50 @@ def level_select_menu(window):
     back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((99* window.get_width()//128, 293*window.get_height()//320), (3*window.get_width()//16, window.get_height()//16)),
                                             text='Back',
                                             manager=manager)
-    left_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//4 - 3*window.get_width()//32, 10*window.get_height()//12), (3*window.get_width()//16, window.get_height()//16)),
-                                            text='<--',
-                                            manager=manager)
     play_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - 3*window.get_width()//32, 10*window.get_height()//12), (3*window.get_width()//16, window.get_height()//16)),
                                             text='Play',
                                             manager=manager)
     right_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((3*window.get_width()//4 - 3*window.get_width()//32, 10*window.get_height()//12), (3*window.get_width()//16, window.get_height()//16)),
                                             text='-->',
                                             manager=manager)
-    placeholderting = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//4 - 3*window.get_width()//32, window.get_height()//6), (22*window.get_width()//32, 5*window.get_height()//8)),
-                                            text='PLACEHOLDER FOR MINI SCREEN SIZE AND X/Y COORDINATES',
+    left_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//4 - 3*window.get_width()//32, 10*window.get_height()//12), (3*window.get_width()//16, window.get_height()//16)),
+                                            text='<--',
                                             manager=manager)
+    #placeholderting = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//4 - 3*window.get_width()//32, window.get_height()//6), (22*window.get_width()//32, 5*window.get_height()//8)),
+     #                                       text='PLACEHOLDER FOR MINI SCREEN SIZE AND X/Y COORDINATES',
+      #                                      manager=manager)
 
 
     clock = pygame.time.Clock()
-
+    window.blit(background_image, (0,0))
     while True: #THE LOOP THAT DOES THE CONSTANT USER INPUT CHECKS AND DRAWS
         pygame.time.delay(10) #This is the function that creates a time delay of x milliseconds
         time_delta = clock.tick(60)/1000.0
 
+        myLevel = Level(index)
+        myLevel.draw_level(window) 
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return "exit"
-
-
             #CHECKS BUTTON INPUT
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == left_button:
+                        window.blit(background_image, (0,0))
                         index = index - 1
-                    if event.ui_element == right_button:
+                        if index < 0:
+                            index = number_of_levels
+                    elif event.ui_element == right_button:
+                        window.blit(background_image, (0,0))
                         index = index + 1
-                    else:
+                        if index >= number_of_levels:
+                            index = 0
+                    elif event.ui_element == back_button:
                         return "back"
             manager.process_events(event)
 
-        window.fill((255,196,0))
-        window.blit(background_image, (0,0))
+        
         manager.update(time_delta)
         manager.draw_ui(window)
         pygame.display.update()
