@@ -7,12 +7,17 @@ from Level import Level
 def draw_game_based_on_status(status, arg):
     return game_status_dictionary[status](arg)
 
+def systemSetDisplay():
+    #window = pygame.display.set_mode((1800, 1000))
+    #window = pygame.display.set_mode((640, 480))
+    #window = pygame.display.set_mode((800, 600))
+    window = pygame.display.set_mode((1024, 768))
+
+    return window
+
 pygame.init()
 
-
-pygame.init()
-window = pygame.display.set_mode((1800, 1000))
-
+window = systemSetDisplay()
 pygame.display.set_caption("Sokoban")
 
 currentLevel = 0
@@ -26,7 +31,7 @@ while run:
     clock = pygame.time.Clock()
     clock.tick(60) #refresh rate
     
-    #run = mainMenu(window) #load main menu
+    #run = mainMenuScreen(window) #load main menu
     
     for event in pygame.event.get(): # exit button works
         if event.type == pygame.QUIT:
@@ -50,12 +55,14 @@ while run:
         elif keys[pygame.K_2]: # skip this level
             currentLevel = myLevel.getCurrentLevel() + 1
             print("Current Level = " + str(currentLevel))
-            window = pygame.display.set_mode((1800, 1000))
+            #window = pygame.display.set_mode((1800, 1000))
+            window = systemSetDisplay()
             myLevel = Level(currentLevel)
         if(myLevel.LevelComplete() == True):
             print("LEVEL " + str(currentLevel) + " COMPLETE")
             currentLevel = myLevel.getCurrentLevel() + 1
-            window = pygame.display.set_mode((1800, 1000))
+            #window = pygame.display.set_mode((1800, 1000))
+            window = systemSetDisplay()
             myLevel = Level(currentLevel)
         
 pygame.quit()

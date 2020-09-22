@@ -2,16 +2,42 @@
 
 class worker(object):
     def __init__(self, myLevel):
+        """Constructor for worker class. Takes init worker location and save it as x and y
+
+        Args:
+            myLevel (Level): A level object to get init worker location from txt file
+        """
         self.x = myLevel.getWorkerLocation()[0]
         self.y = myLevel.getWorkerLocation()[1]
     def moveWorkerCorr(self, x, y):
+        """Move worker location
+
+        Args:
+            x (int): worker's x corrd
+            y (int): worker's y corrd
+        """
         self.x = x
         self.y = y
-    def update(self, myLevel, Simplematrix):
+    def update(self, myLevel, Simplematrix, direction):
+        """Update worker location and matrix
+
+        Args:
+            myLevel (Level): Level object to update to
+            Simplematrix (list[str]): a updated simplematrix to be uploaded to myLevel
+            direction (str): direction of the worker
+        """
         myLevel.updateMatrixGivenSimpleMatrix(Simplematrix)
-        myLevel.updateWorkerLocation(self.x, self.y)
+        myLevel.updateWorkerLocation(self.x, self.y, direction)
 
     def find_type_of_object(self, box):
+        """get the type of the object
+
+        Args:
+            box (str): can be one of '0, 1, 2, 3, 4' which means "ground, wall, box, targetGround, box_in_correct_location"
+
+        Returns:
+            [str]: returns "ground, wall, box, targetGround, box_in_correct_location" given input
+        """
         if(box == '0'):
             return "ground"
         elif(box == '1'):
@@ -22,8 +48,16 @@ class worker(object):
             return "targetGround"
         elif(box == '4'):
             return "box_in_correct_location"
-    def moveContent(self, x, y, Simplematrix):
 
+    def moveContent(self, x, y, Simplematrix):
+        """Move the content given worker current location, 
+        simple matrix and how much you want to move for
+
+        Args:
+            x (int): how much do you want to move in the x direction
+            y (int): how much do you want to move in the y direction
+            Simplematrix (list[str]): Simple matrix reprsenting the board
+        """
         next_box = Simplematrix[self.y+y][self.x+x]
         type_of_next_object = self.find_type_of_object(next_box)
 
@@ -57,7 +91,12 @@ class worker(object):
 
 
     def movePlayer(self, direction, myLevel):
+        """Move worker given its direction, current location, and it's level
 
+        Args:
+            direction (str): worker's direction
+            myLevel (Level): a instance of Level for level number, simplematrix.
+        """
         Simplematrix = myLevel.getSimpleMatrix()
 
         if(direction == "up"):
@@ -76,6 +115,6 @@ class worker(object):
             #print("+++++++++MOVING right++++++++++")
             self.moveContent(1, 0, Simplematrix)
 
-        self.update(myLevel, Simplematrix)
+        self.update(myLevel, Simplematrix, direction)
 
 
