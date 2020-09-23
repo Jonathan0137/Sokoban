@@ -48,7 +48,6 @@ def level_select_menu(window):
         textRect.center = (window.get_width()//2, window.get_height()//6)
 
         #DRAWS THE SELECTED LEVEL
-        window.blit(background_image, (0,0))
         window.blit(text, textRect)
         myLevel = Level(index)
         myLevel.draw_level(window) 
@@ -61,11 +60,13 @@ def level_select_menu(window):
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == left_button:
                         index = index - 1
+                        window.blit(background_image, (0,0))
                         if index < 0:
                             index = number_of_levels
                     elif event.ui_element == right_button:
                         index = index + 1
-                        if index >= number_of_levels:
+                        window.blit(background_image, (0,0))
+                        if index > number_of_levels:
                             index = 0
                     elif event.ui_element == back_button:
                         return "back"
