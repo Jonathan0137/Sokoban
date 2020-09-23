@@ -32,10 +32,9 @@ def level_select_menu(window):
     left_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//4 - 3*window.get_width()//32, 10*window.get_height()//12), (3*window.get_width()//16, window.get_height()//16)),
                                             text='<--',
                                             manager=manager)
-    #placeholderting = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//4 - 3*window.get_width()//32, window.get_height()//6), (22*window.get_width()//32, 5*window.get_height()//8)),
-     #                                       text='PLACEHOLDER FOR MINI SCREEN SIZE AND X/Y COORDINATES',
-      #                                      manager=manager)
-
+    
+    font = pygame.font.Font('freesansbold.ttf', 32)  
+    
 
     clock = pygame.time.Clock()
     window.blit(background_image, (0,0))
@@ -43,6 +42,14 @@ def level_select_menu(window):
         pygame.time.delay(10) #This is the function that creates a time delay of x milliseconds
         time_delta = clock.tick(60)/1000.0
 
+        current_level = "Level " + str(index + 1)
+        text = font.render(current_level, True, (255, 165, 0))
+        textRect = text.get_rect()
+        textRect.center = (window.get_width()//2, window.get_height()//6)
+
+        #DRAWS THE SELECTED LEVEL
+        window.blit(background_image, (0,0))
+        window.blit(text, textRect)
         myLevel = Level(index)
         myLevel.draw_level(window) 
 
@@ -53,12 +60,10 @@ def level_select_menu(window):
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == left_button:
-                        window.blit(background_image, (0,0))
                         index = index - 1
                         if index < 0:
                             index = number_of_levels
                     elif event.ui_element == right_button:
-                        window.blit(background_image, (0,0))
                         index = index + 1
                         if index >= number_of_levels:
                             index = 0
