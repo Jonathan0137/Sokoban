@@ -149,7 +149,7 @@ def optionsScreen(window):
     background_image_file = open("menubackground.png")
     background_image = pygame.image.load(background_image_file)
 
-    temp_list_screen_size = ["640x480", "800x600", "1024x768"]
+    temp_list_screen_size = ["SCREEN SIZE: 800x600", "SCREEN SIZE: 1024x768", "SCREEN SIZE: Fullscreen"]
 
     
 
