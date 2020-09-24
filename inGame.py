@@ -3,14 +3,14 @@ from worker import worker
 from Level import Level
 
 
-def inGameScreen(window):
+def inGameScreen(window, level_num):
 
     pygame.init()
 
     pygame.display.set_caption("Sokoban")
 
     number_of_moves = 0
-    currentLevel = 0
+    currentLevel = level_num
     myLevel = Level(currentLevel)
 
     font = pygame.font.SysFont('arial', 20, True)
