@@ -7,13 +7,13 @@ def inGameScreen(arg):
 
     window = arg[0]
     level_num = arg[1]
-    
+
     pygame.init()
 
     pygame.display.set_caption("Sokoban")
 
     number_of_moves = 0
-    currentLevel = level_num
+    currentLevel = int(level_num)
     myLevel = Level(currentLevel)
 
     font = pygame.font.SysFont('arial', 20, True)
@@ -27,6 +27,7 @@ def inGameScreen(arg):
         for event in pygame.event.get(): # exit button works
             if event.type == pygame.QUIT:
                 run = False
+                return "MainMenu"
             window.fill((117, 81, 17))
 
             level_text = font.render("Level : " + str(currentLevel), 1, (0,0,0))
@@ -58,23 +59,30 @@ def inGameScreen(arg):
                 number_of_moves = 0
             elif keys[pygame.K_2]: # skip this level
                 currentLevel = myLevel.getCurrentLevel() + 1
+                if(currentLevel == 30):
+                    print("GameOver")
+                    run = False
+                    return "MainMenu"
                 print("Current Level = " + str(currentLevel))
-                #window = pygame.display.set_mode((1800, 1000))
-                window = systemSetDisplay()
+                window = pygame.display.set_mode((1800, 1000))
+                #window = systemSetDisplay()
                 myLevel = Level(currentLevel)
                 number_of_moves = 0
-            elif keys[pygame.K_ESCAPE]: # back to main menu
+            elif keys[pygame.K_DELETE]: # back to main menu
+                print("Back")
+                run = False
                 return "MainMenu"
 
             if(myLevel.LevelComplete() == True):
                 print("LEVEL " + str(currentLevel) + " COMPLETE")
                 currentLevel = myLevel.getCurrentLevel() + 1
-                #window = pygame.display.set_mode((1800, 1000))
-                window = systemSetDisplay()
+                window = pygame.display.set_mode((1800, 1000))
+                #window = systemSetDisplay()
                 myLevel = Level(currentLevel)
                 number_of_moves = 0
             if(currentLevel == 30):
                 print("GameOver")
+                run = False
                 return "MainMenu"
 
 

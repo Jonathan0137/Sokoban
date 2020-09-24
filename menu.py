@@ -42,7 +42,7 @@ def level_select_menu(window):
         pygame.time.delay(10) #This is the function that creates a time delay of x milliseconds
         time_delta = clock.tick(60)/1000.0
 
-        current_level = "Level " + str(index + 1)
+        current_level = "Level " + str(index)
         text = font.render(current_level, True, (255, 165, 0))
         textRect = text.get_rect()
         textRect.center = (window.get_width()//2, window.get_height()//6)
