@@ -27,7 +27,7 @@ def inGameScreen(arg):
         for event in pygame.event.get(): # exit button works
             if event.type == pygame.QUIT:
                 run = False
-                return "MainMenu"
+                return "exit"
             window.fill((117, 81, 17))
 
             level_text = font.render("Level : " + str(currentLevel), 1, (0,0,0))
