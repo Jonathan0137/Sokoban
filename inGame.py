@@ -64,8 +64,7 @@ def inGameScreen(arg):
                     run = False
                     return "MainMenu"
                 print("Current Level = " + str(currentLevel))
-                window = pygame.display.set_mode((1800, 1000))
-                #window = systemSetDisplay()
+                window = arg[0]
                 myLevel = Level(currentLevel)
                 number_of_moves = 0
             elif keys[pygame.K_DELETE]: # back to main menu
@@ -76,8 +75,7 @@ def inGameScreen(arg):
             if(myLevel.LevelComplete() == True):
                 print("LEVEL " + str(currentLevel) + " COMPLETE")
                 currentLevel = myLevel.getCurrentLevel() + 1
-                window = pygame.display.set_mode((1800, 1000))
-                #window = systemSetDisplay()
+                window = arg[0]
                 myLevel = Level(currentLevel)
                 number_of_moves = 0
             if(currentLevel == 30):
