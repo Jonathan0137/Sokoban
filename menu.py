@@ -70,6 +70,8 @@ def level_select_menu(window):
                             index = 0
                     elif event.ui_element == back_button:
                         return "back"
+                    elif event.ui_element == play_button:
+                        return "InGame/" + str(index)
             manager.process_events(event)
 
         
