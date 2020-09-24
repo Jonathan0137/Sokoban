@@ -3,8 +3,11 @@ from worker import worker
 from Level import Level
 
 
-def inGameScreen(window, level_num):
+def inGameScreen(arg):
 
+    window = arg[0]
+    level_num = arg[1]
+    
     pygame.init()
 
     pygame.display.set_caption("Sokoban")
