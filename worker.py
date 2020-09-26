@@ -82,7 +82,7 @@ class worker(object):
             if(self.find_type_of_object(Simplematrix[self.y+y+y][self.x+x+x]) == "ground"): # see if object after box is ground
                 Simplematrix[self.y+y+y][self.x+x+x] = '2'
                 self.moveWorkerCorr(self.x+x, self.y+y)
-                Simplematrix[self.y][self.x] = '0'
+                Simplematrix[self.y][self.x] = '3'
             elif(self.find_type_of_object(Simplematrix[self.y+y+y][self.x+x+x]) == "targetGround"):# see if object after box is targetGround
                 Simplematrix[self.y+y+y][self.x+x+x] = '4'
                 self.moveWorkerCorr(self.x+x, self.y+y)
