@@ -50,7 +50,7 @@ def level_select_menu(window):
         #DRAWS THE SELECTED LEVEL
         window.blit(text, textRect)
         myLevel = Level(index)
-        myLevel.draw_level(window) 
+        myLevel.draw_level_preview(window) 
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

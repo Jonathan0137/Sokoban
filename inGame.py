@@ -37,7 +37,7 @@ def inGameScreen(arg):
             window.blit(Moves_text, (10, 35))
 
 
-            myLevel.draw_level(window) #level class
+            myLevel.draw_level(window, 64) #level class
             myWorker = worker(myLevel)  #worker class
 
             keys = pygame.key.get_pressed()#get key presses
