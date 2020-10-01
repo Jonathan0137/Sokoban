@@ -200,20 +200,22 @@ def optionsScreen(window):
                     elif event.ui_element == sound_effects_option_button:
                         if options_dict["sound_effects"] == "On":
                             options_dict["sound_effects"] = "Off"
-                            sound_effects_option_button.text = "Sound Effects: Off"
+                            event.text = "Sound Effects: Off"
                         else:
                             options_dict["sound_effects"] = "On"
-                            sound_effects_option_button.text = "Sound Effects: On"
+                            event.text = "Sound Effects: On"
                     elif event.ui_element == music_option_button:
                         if options_dict["music"] == "On":
                             options_dict["music"] = "Off"
-                            music_option_button.text = "Music: Off"
+                            event.text = "Music: Off"
                         else:
                             options_dict["music"] = "On"
-                            sound_effects_option_button.text = "Music: On"
+                            event.text = "Music: On"
                     #elif event.ui_element == window_resize_button:
-                    json.dump(options_dict, json_file)
-                    json_file.truncate()
+                elif event.user_type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:
+                    options_dict["resolution"] = event.text
+                json.dump(options_dict, json_file)
+                json_file.truncate()
             manager.process_events(event)
 
         window.fill((255,255,255))
