@@ -2,6 +2,7 @@
 import pygame
 import pygame_gui
 import os
+import json
 from Level import *
 
 
@@ -109,7 +110,7 @@ def mainMenuScreen(window):
         quit_button : exitGame
     }
 
-
+    
     clock = pygame.time.Clock()
 
 
@@ -157,52 +158,62 @@ def optionsScreen(window):
     background_image_file = open("menubackground.png")
     background_image = pygame.image.load(background_image_file)
 
-    temp_list_screen_size = ["SCREEN SIZE: 800x600", "SCREEN SIZE: 1024x768", "SCREEN SIZE: Fullscreen"]
+    json_file = open("env.json", "r+")
+    options_dict = json.load(json_file)
 
-    
+    temp_list_screen_size = ["800x600", "1024x768", "Fullscreen"]
+
+        
 
     music_option_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//16, 3*window.get_height()//5), (6 * window.get_width()//16, window.get_height()//5)),
-                                             text='Music (on/off)',
-                                             manager=manager)
+                                                text='Music: ' + options_dict["music"],
+                                                manager=manager)
 
     sound_effects_option_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((9 * window.get_width()//16, window.get_height()//5), (6 * window.get_width()//16, window.get_height()//5)),
-                                             text='Sound Effects (on/off)',
-                                             manager=manager)
+                                                text='Sound Effects: ' + options_dict["sound_effects"],
+                                                manager=manager)
 
     back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((9 * window.get_width()//16, 3*window.get_height()//5), (6 * window.get_width()//16, window.get_height()//5)),
-                                             text='Back',
-                                             manager=manager)
-                                             
-    window_resize_button = pygame_gui.elements.UIDropDownMenu(temp_list_screen_size, temp_list_screen_size[0], relative_rect=pygame.Rect((window.get_width()//16, window.get_height()//5), (6 * window.get_width()//16, window.get_height()//5)),
-                                             manager=manager)
-
-    button_to_status = {
-        music_option_button : "Options", #THE VALUE LINKED TO THE KEY SHOULD BE A FUNCTION THAT MODIFIES PROPERTIES OF GAME
-        sound_effects_option_button : "Options", #THE VALUE LINKED TO THE KEY SHOULD BE A FUNCTION THAT MODIFIES PROPERTIES OF GAME
-        back_button : "back"
-    }
+                                                text='Back',
+                                                manager=manager)
+                                                
+    window_resize_button = pygame_gui.elements.UIDropDownMenu(temp_list_screen_size, "SCREEN SIZE: " + options_dict["resolution"], relative_rect=pygame.Rect((window.get_width()//16, window.get_height()//5), (6 * window.get_width()//16, window.get_height()//5)),
+                                                manager=manager)
 
     clock = pygame.time.Clock()
 
     while True: #THE LOOP THAT DOES THE CONSTANT USER INPUT CHECKS AND DRAWS
         pygame.time.delay(10) #This is the function that creates a time delay of x milliseconds
         time_delta = clock.tick(60)/1000.0
-        
+        json_file.seek(0)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return "exit"
+                 return "exit"
 
 
             #CHECKS BUTTON INPUT
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    try:
-                        current_status = button_to_status[event.ui_element]
-                        if current_status == "back":
-                            return current_status
-                    except:
-                        print("TO DO: ADD LOGIC FOR DROP DOWN MENU")
+                    if event.ui_element == back_button:
+                        return "back"
+                    elif event.ui_element == sound_effects_option_button:
+                        if options_dict["sound_effects"] == "On":
+                            options_dict["sound_effects"] = "Off"
+                            sound_effects_option_button.text = "Sound Effects: Off"
+                        else:
+                            options_dict["sound_effects"] = "On"
+                            sound_effects_option_button.text = "Sound Effects: On"
+                    elif event.ui_element == music_option_button:
+                        if options_dict["music"] == "On":
+                            options_dict["music"] = "Off"
+                            music_option_button.text = "Music: Off"
+                        else:
+                            options_dict["music"] = "On"
+                            sound_effects_option_button.text = "Music: On"
+                    #elif event.ui_element == window_resize_button:
+                    json.dump(options_dict, json_file)
+                    json_file.truncate()
             manager.process_events(event)
 
         window.fill((255,255,255))
