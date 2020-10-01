@@ -14,9 +14,21 @@ def draw_game_based_on_status(status, window):
     
     return game_status_dictionary[status](arg)
 
+def initWindow():
+    json_file = open("env.json", "r")
+    options_dict = json.load(json_file)
+    if(options_dict["resolution"] == "Fullscreen"):
+        window = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    else:
+        x = int(options_dict["resolution"].split("x")[0])
+        y = int(options_dict["resolution"].split("x")[1])
+        window = pygame.display.set_mode((x, y))
+    return window
+
+
 pygame.init()
 
-window = pygame.display.set_mode((1800, 1000))
+window = initWindow()
 
 pygame.display.set_caption("Sokoban")
 
