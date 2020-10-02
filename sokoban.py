@@ -16,7 +16,7 @@ def draw_game_based_on_status(status, window):
 
 pygame.init()
 
-window = pygame.display.set_mode((1800, 1000))
+window = pygame.display.set_mode((800, 600))
 
 pygame.display.set_caption("Sokoban")
 
