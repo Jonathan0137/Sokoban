@@ -1,5 +1,6 @@
 import pygame
 from menu import *
+from windows import *
 from inGame import *
 from worker import worker
 from Level import Level
@@ -16,7 +17,7 @@ def draw_game_based_on_status(status, window):
 
 pygame.init()
 
-window = pygame.display.set_mode((800, 600))
+window = initWindow()
 
 pygame.display.set_caption("Sokoban")
 
