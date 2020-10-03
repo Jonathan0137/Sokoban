@@ -4,6 +4,7 @@ import pygame_gui
 import os
 import json
 from Level import *
+from windows import *
 
 
 pygame.init()
@@ -200,20 +201,22 @@ def optionsScreen(window):
                     elif event.ui_element == sound_effects_option_button:
                         if options_dict["sound_effects"] == "On":
                             options_dict["sound_effects"] = "Off"
-                            event.text = "Sound Effects: Off"
+                            sound_effects_option_button.set_text("Sound Effects: Off")
                         else:
                             options_dict["sound_effects"] = "On"
-                            event.text = "Sound Effects: On"
+                            sound_effects_option_button.set_text("Sound Effects: On")
                     elif event.ui_element == music_option_button:
                         if options_dict["music"] == "On":
                             options_dict["music"] = "Off"
-                            event.text = "Music: Off"
+                            music_option_button.set_text("Music: Off")
                         else:
                             options_dict["music"] = "On"
-                            event.text = "Music: On"
-                    #elif event.ui_element == window_resize_button:
+                            music_option_button.set_text("Music: On")
                 elif event.user_type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:
                     options_dict["resolution"] = event.text
+                    json.dump(options_dict, json_file)
+                    json_file.truncate()
+                    window = resizeWindow(window)
                 json.dump(options_dict, json_file)
                 json_file.truncate()
             manager.process_events(event)
