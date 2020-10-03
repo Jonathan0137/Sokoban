@@ -11,6 +11,7 @@ def initWindow():
         x = int(options_dict["resolution"].split("x")[0])
         y = int(options_dict["resolution"].split("x")[1])
         window = pygame.display.set_mode((x, y))
+
     return window
 
 def resizeWindow(window):
@@ -22,3 +23,5 @@ def resizeWindow(window):
         x = int(options_dict["resolution"].split("x")[0])
         y = int(options_dict["resolution"].split("x")[1])
         window = pygame.display.set_mode((x, y))
+    
+    return window
