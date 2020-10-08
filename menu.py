@@ -137,6 +137,12 @@ def mainMenuScreen(window):
                     status_check = button_to_status[event.ui_element](window)
                     if status_check != "back":
                         return status_check
+                    start_button.set_dimensions((window.get_width()//3, window.get_height()//8))
+                    option_button.set_dimensions((window.get_width()//3, window.get_height()//8))
+                    quit_button.set_dimensions((window.get_width()//3, window.get_height()//8))
+                    start_button.set_position((window.get_width()//2 - window.get_width()//6, window.get_height()//4))
+                    option_button.set_position((window.get_width()//2 - window.get_width()//6, 2*window.get_height()//4))
+                    quit_button.set_position((window.get_width()//2 - window.get_width()//6, 3*window.get_height()//4))
             manager.process_events(event)
 
         
@@ -217,6 +223,14 @@ def optionsScreen(window):
                     json.dump(options_dict, json_file)
                     json_file.truncate()
                     window = resizeWindow(window)
+                    music_option_button.set_dimensions((6 * window.get_width()//16, window.get_height()//5))
+                    sound_effects_option_button.set_dimensions((6 * window.get_width()//16, window.get_height()//5))
+                    back_button.set_dimensions((6 * window.get_width()//16, window.get_height()//5))
+                    window_resize_button.set_dimensions((6 * window.get_width()//16, window.get_height()//5))
+                    music_option_button.set_position((window.get_width()//16, 3*window.get_height()//5))
+                    sound_effects_option_button.set_position((9 * window.get_width()//16, window.get_height()//5))
+                    back_button.set_position((9 * window.get_width()//16, 3*window.get_height()//5))
+                    window_resize_button.set_position((window.get_width()//16, window.get_height()//5))
                 json.dump(options_dict, json_file)
                 json_file.truncate()
             manager.process_events(event)
