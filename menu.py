@@ -315,7 +315,9 @@ def help_menu(window):
     while True: #THE LOOP THAT DOES THE CONSTANT USER INPUT CHECKS AND DRAWS
         pygame.time.delay(10) #This is the function that creates a time delay of x milliseconds
         time_delta = clock.tick(60)/1000.0
-        
+
+        window.fill((211, 235, 217))
+        how_to_play_box(window)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -329,8 +331,39 @@ def help_menu(window):
                     return "back"
             manager.process_events(event)
 
-        window.fill((255,196,0))
-        window.blit(background_image, (0,0))
+
+        #window.blit(background_image, (0,0))
+
         manager.update(time_delta)
         manager.draw_ui(window)
         pygame.display.update()
+
+def how_to_play_box(window):
+
+    box_width = window.get_width()//1.2
+    box_height = window.get_height()//1.2
+
+    starting_location = (1* window.get_width()//12, 1* window.get_height()//15)
+
+
+    how_to_play_box = pygame.Rect(starting_location[0], starting_location[1], box_width, box_height)
+    pygame.draw.rect(window, (149, 156, 151), how_to_play_box)
+    
+    Header_font = pygame.font.SysFont('arial', 40, True)
+    font = pygame.font.SysFont('Arial', 20)
+
+    Header_text = Header_font.render("Control For Sokoban", 1, (0,0,0))
+    explain_1 = font.render("- Arrow keys for player movement", 1, (0,0,0))
+    explain_2 = font.render("- U for restart level", 1, (0,0,0))
+    explain_3 = font.render("- N for next level", 1, (0,0,0))
+    explain_4 = font.render("- Q for quit to main menu", 1, (0,0,0))
+
+
+   
+    window.blit(Header_text, (starting_location[0] * 3.8, starting_location[1] * 2))
+    window.blit(explain_1, (starting_location[0] * 4.5, starting_location[1] * 4))
+    window.blit(explain_2, (starting_location[0] * 4.5, starting_location[1] * 5))
+    window.blit(explain_3, (starting_location[0] * 4.5, starting_location[1] * 6))
+    window.blit(explain_4, (starting_location[0] * 4.5, starting_location[1] * 7))
+
+

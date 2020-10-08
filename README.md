@@ -17,11 +17,11 @@ python sokoban.py
 
 Arrow keys for player movement
 
-U for restart level (current is 1)
+U for restart level 
 
-N for next level (current is 2)
+N for next level 
 
-Q for quit to main menu (current is del)
+Q for quit to main menu 
 
 
 # Sokoban rules:
