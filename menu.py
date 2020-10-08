@@ -93,15 +93,15 @@ def mainMenuScreen(window):
     #pygame.mixer.music.play(-1) #PLAYS MUSIC -1 MEANS IN LOOP
 
 
-    start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - window.get_width()//6, window.get_height()//4), (window.get_width()//3, window.get_height()//8)),
+    start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - window.get_width()//6, 5*window.get_height()//16), (window.get_width()//3, window.get_height()//8)),
                                              text='Start Game',
                                              manager=manager)
 
-    option_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - window.get_width()//6, 2*window.get_height()//4), (window.get_width()//3, window.get_height()//8)),
+    option_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - window.get_width()//6, 9*window.get_height()//16), (window.get_width()//3, window.get_height()//8)),
                                              text='Game Options',
                                              manager=manager)
 
-    quit_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - window.get_width()//6, 3*window.get_height()//4), (window.get_width()//3, window.get_height()//8)),
+    quit_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - window.get_width()//6, 13*window.get_height()//16), (window.get_width()//3, window.get_height()//8)),
                                              text='Exit Game',
                                              manager=manager)
 
@@ -140,9 +140,9 @@ def mainMenuScreen(window):
                     start_button.set_dimensions((window.get_width()//3, window.get_height()//8))
                     option_button.set_dimensions((window.get_width()//3, window.get_height()//8))
                     quit_button.set_dimensions((window.get_width()//3, window.get_height()//8))
-                    start_button.set_position((window.get_width()//2 - window.get_width()//6, window.get_height()//4))
-                    option_button.set_position((window.get_width()//2 - window.get_width()//6, 2*window.get_height()//4))
-                    quit_button.set_position((window.get_width()//2 - window.get_width()//6, 3*window.get_height()//4))
+                    start_button.set_position((window.get_width()//2 - window.get_width()//6, 5*window.get_height()//16))
+                    option_button.set_position((window.get_width()//2 - window.get_width()//6, 9*window.get_height()//16))
+                    quit_button.set_position((window.get_width()//2 - window.get_width()//6, 13*window.get_height()//16))
             manager.process_events(event)
 
         
