@@ -5,6 +5,7 @@ import os
 import json
 from Level import *
 from windows import *
+import time
 
 
 pygame.init()
@@ -93,7 +94,7 @@ def mainMenuScreen(window):
     #pygame.mixer.music.play(-1) #PLAYS MUSIC -1 MEANS IN LOOP
 
 
-    start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - window.get_width()//6, 5*window.get_height()//16), (window.get_width()//3, window.get_height()//8)),
+    start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - window.get_width()//6, 6*window.get_height()//16), (window.get_width()//3, window.get_height()//8)),
                                              text='Start Game',
                                              manager=manager)
 
@@ -101,7 +102,7 @@ def mainMenuScreen(window):
                                              text='Game Options',
                                              manager=manager)
 
-    quit_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - window.get_width()//6, 13*window.get_height()//16), (window.get_width()//3, window.get_height()//8)),
+    quit_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - window.get_width()//6, 12*window.get_height()//16), (window.get_width()//3, window.get_height()//8)),
                                              text='Exit Game',
                                              manager=manager)
 
@@ -137,12 +138,19 @@ def mainMenuScreen(window):
                     status_check = button_to_status[event.ui_element](window)
                     if status_check != "back":
                         return status_check
+                    manager.set_window_resolution((window.get_width(), window.get_height()))
                     start_button.set_dimensions((window.get_width()//3, window.get_height()//8))
                     option_button.set_dimensions((window.get_width()//3, window.get_height()//8))
                     quit_button.set_dimensions((window.get_width()//3, window.get_height()//8))
-                    start_button.set_position((window.get_width()//2 - window.get_width()//6, 5*window.get_height()//16))
+                    start_button.set_position((window.get_width()//2 - window.get_width()//6, 6*window.get_height()//16))
                     option_button.set_position((window.get_width()//2 - window.get_width()//6, 9*window.get_height()//16))
-                    quit_button.set_position((window.get_width()//2 - window.get_width()//6, 13*window.get_height()//16))
+                    quit_button.set_position((window.get_width()//2 - window.get_width()//6, 12*window.get_height()//16))
+                    start_button.ui_container.set_dimensions((window.get_width(), window.get_height()))
+                    option_button.ui_container.set_dimensions((window.get_width(), window.get_height()))
+                    quit_button.ui_container.set_dimensions((window.get_width(), window.get_height()))
+                    start_button.rebuild()
+                    option_button.rebuild()
+                    quit_button.rebuild()
             manager.process_events(event)
 
         
@@ -222,7 +230,8 @@ def optionsScreen(window):
                     options_dict["resolution"] = event.text
                     json.dump(options_dict, json_file)
                     json_file.truncate()
-                    window = resizeWindow(window)
+                    resizeWindow(window)
+                    manager.set_window_resolution((window.get_width(), window.get_height()))
                     music_option_button.set_dimensions((6 * window.get_width()//16, window.get_height()//5))
                     sound_effects_option_button.set_dimensions((6 * window.get_width()//16, window.get_height()//5))
                     back_button.set_dimensions((6 * window.get_width()//16, window.get_height()//5))
@@ -231,6 +240,10 @@ def optionsScreen(window):
                     sound_effects_option_button.set_position((9 * window.get_width()//16, window.get_height()//5))
                     back_button.set_position((9 * window.get_width()//16, 3*window.get_height()//5))
                     window_resize_button.set_position((window.get_width()//16, window.get_height()//5))
+                    music_option_button.ui_container.set_dimensions((window.get_width(), window.get_height()))
+                    sound_effects_option_button.ui_container.set_dimensions((window.get_width(), window.get_height()))
+                    back_button.ui_container.set_dimensions((window.get_width(), window.get_height()))
+                    window_resize_button.ui_container.set_dimensions((window.get_width(), window.get_height()))
                 json.dump(options_dict, json_file)
                 json_file.truncate()
             manager.process_events(event)
