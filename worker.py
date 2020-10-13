@@ -1,5 +1,4 @@
-import json
-import pygame
+from soundeffect import *
 
 class worker(object):
     def __init__(self, myLevel):
@@ -50,12 +49,6 @@ class worker(object):
         elif(box == '4'):
             return "box_in_correct_location"
 
-    def soundEffect(self):
-        json_file = open("env.json", "r")
-        options_dict = json.load(json_file)
-        if(options_dict["sound_effects"] == "On"):
-            move_box_sound = pygame.mixer.Sound("box_moving.wav")
-            move_box_sound.play()
 
 
     def moveContent(self, x, y, Simplematrix):
@@ -78,12 +71,12 @@ class worker(object):
                 Simplematrix[self.y+y+y][self.x+x+x] = '2'
                 self.moveWorkerCorr(self.x+x, self.y+y)
                 Simplematrix[self.y][self.x] = '0'
-                self.soundEffect()
+                soundEffect()
             elif(self.find_type_of_object(Simplematrix[self.y+y+y][self.x+x+x]) == "targetGround"):# see if object after box is targetGround
                 Simplematrix[self.y+y+y][self.x+x+x] = '4'
                 self.moveWorkerCorr(self.x+x, self.y+y)
                 Simplematrix[self.y][self.x] = '0'
-                self.soundEffect()
+                soundEffect()
 
         elif(type_of_next_object == "targetGround"):
             #"This is a targetGround"
@@ -95,12 +88,12 @@ class worker(object):
                 Simplematrix[self.y+y+y][self.x+x+x] = '2'
                 self.moveWorkerCorr(self.x+x, self.y+y)
                 Simplematrix[self.y][self.x] = '3'
-                self.soundEffect()
+                soundEffect()
             elif(self.find_type_of_object(Simplematrix[self.y+y+y][self.x+x+x]) == "targetGround"):# see if object after box is targetGround
                 Simplematrix[self.y+y+y][self.x+x+x] = '4'
                 self.moveWorkerCorr(self.x+x, self.y+y)
                 Simplematrix[self.y][self.x] = '3'
-                self.soundEffect()
+                soundEffect()
 
 
 
