@@ -54,10 +54,10 @@ def inGameScreen(arg):
             elif keys[pygame.K_RIGHT]:
                 myWorker.movePlayer("right", myLevel)
                 number_of_moves += 1
-            elif keys[pygame.K_1]: # restart button pressed
+            elif keys[pygame.K_r]: # restart button pressed
                 myLevel = Level(currentLevel)
                 number_of_moves = 0
-            elif keys[pygame.K_2]: # skip this level
+            elif keys[pygame.K_n]: # skip this level
                 currentLevel = myLevel.getCurrentLevel() + 1
                 if(currentLevel == 30):
                     print("GameOver")
@@ -67,7 +67,7 @@ def inGameScreen(arg):
                 window = arg[0]
                 myLevel = Level(currentLevel)
                 number_of_moves = 0
-            elif keys[pygame.K_DELETE]: # back to main menu
+            elif keys[pygame.K_q]: # back to main menu
                 print("Back")
                 run = False
                 return "MainMenu"
