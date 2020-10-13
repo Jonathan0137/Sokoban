@@ -1,4 +1,5 @@
-
+import json
+import pygame
 
 class worker(object):
     def __init__(self, myLevel):
@@ -49,6 +50,14 @@ class worker(object):
         elif(box == '4'):
             return "box_in_correct_location"
 
+    def soundEffect(self):
+        json_file = open("env.json", "r")
+        options_dict = json.load(json_file)
+        if(options_dict["sound_effects"] == "On"):
+            move_box_sound = pygame.mixer.Sound("box_moving.wav")
+            move_box_sound.play()
+
+
     def moveContent(self, x, y, Simplematrix):
         """Move the content given worker current location, 
         simple matrix and how much you want to move for
@@ -58,6 +67,7 @@ class worker(object):
             y (int): how much do you want to move in the y direction
             Simplematrix (list[str]): Simple matrix reprsenting the board
         """
+        
         next_box = Simplematrix[self.y+y][self.x+x]
         type_of_next_object = self.find_type_of_object(next_box)
 
@@ -68,10 +78,12 @@ class worker(object):
                 Simplematrix[self.y+y+y][self.x+x+x] = '2'
                 self.moveWorkerCorr(self.x+x, self.y+y)
                 Simplematrix[self.y][self.x] = '0'
+                self.soundEffect()
             elif(self.find_type_of_object(Simplematrix[self.y+y+y][self.x+x+x]) == "targetGround"):# see if object after box is targetGround
                 Simplematrix[self.y+y+y][self.x+x+x] = '4'
                 self.moveWorkerCorr(self.x+x, self.y+y)
                 Simplematrix[self.y][self.x] = '0'
+                self.soundEffect()
 
         elif(type_of_next_object == "targetGround"):
             #"This is a targetGround"
@@ -83,10 +95,12 @@ class worker(object):
                 Simplematrix[self.y+y+y][self.x+x+x] = '2'
                 self.moveWorkerCorr(self.x+x, self.y+y)
                 Simplematrix[self.y][self.x] = '3'
+                self.soundEffect()
             elif(self.find_type_of_object(Simplematrix[self.y+y+y][self.x+x+x]) == "targetGround"):# see if object after box is targetGround
                 Simplematrix[self.y+y+y][self.x+x+x] = '4'
                 self.moveWorkerCorr(self.x+x, self.y+y)
                 Simplematrix[self.y][self.x] = '3'
+                self.soundEffect()
 
 
 
