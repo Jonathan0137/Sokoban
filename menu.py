@@ -377,31 +377,25 @@ def help_menu(window):
         pygame.display.update()
 
 def how_to_play_box(window):
+    starting_location = (window.get_width()//12, window.get_height()//15)
 
-    box_width = window.get_width()//1.2
-    box_height = window.get_height()//1.2
+    Header_font = pygame.font.Font('freesansbold.ttf', 32)  
+    font = pygame.font.SysFont('freesansbold.ttf', 25)
 
-    starting_location = (1* window.get_width()//12, 1* window.get_height()//15)
-
-
-    how_to_play_box = pygame.Rect(starting_location[0], starting_location[1], box_width, box_height)
-    pygame.draw.rect(window, (149, 156, 151), how_to_play_box)
-    
-    Header_font = pygame.font.SysFont('arial', 40, True)
-    font = pygame.font.SysFont('Arial', 20)
-
-    Header_text = Header_font.render("Control For Sokoban", 1, (0,0,0))
+    sokoban_txt = Header_font.render("Control For Sokoban", True, (100, 100, 0))
     explain_1 = font.render("- Arrow keys for player movement", 1, (0,0,0))
     explain_2 = font.render("- U for restart level", 1, (0,0,0))
     explain_3 = font.render("- N for next level", 1, (0,0,0))
     explain_4 = font.render("- Q for quit to main menu", 1, (0,0,0))
 
+    textRect = sokoban_txt.get_rect()
+    textRect.center = (window.get_width()//2, window.get_height()//12)
 
    
-    window.blit(Header_text, (starting_location[0] * 3.8, starting_location[1] * 2))
-    window.blit(explain_1, (starting_location[0] * 4.5, starting_location[1] * 4))
-    window.blit(explain_2, (starting_location[0] * 4.5, starting_location[1] * 5))
-    window.blit(explain_3, (starting_location[0] * 4.5, starting_location[1] * 6))
-    window.blit(explain_4, (starting_location[0] * 4.5, starting_location[1] * 7))
+    window.blit(sokoban_txt, textRect)
+    window.blit(explain_1, (starting_location[0] * 4, starting_location[1] * 3))
+    window.blit(explain_2, (starting_location[0] * 4, starting_location[1] * 4))
+    window.blit(explain_3, (starting_location[0] * 4, starting_location[1] * 5))
+    window.blit(explain_4, (starting_location[0] * 4, starting_location[1] * 6))
 
 
