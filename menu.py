@@ -5,7 +5,7 @@ import os
 import json
 from Level import *
 from windows import *
-import time
+from soundeffect import *
 
 
 pygame.init()
@@ -23,8 +23,7 @@ def level_select_menu(window):
     json_file = open("env.json", "r+")
     options_dict = json.load(json_file)
     button_sound_effect = pygame.mixer.Sound('buttonsfx.wav')
-    if options_dict["sound_effects"] == "Off":
-        button_sound_effect.set_volume(0)
+    soundVolumeCheck(button_sound_effect)
 
     index = 0
     entries = os.listdir('level/')
@@ -110,10 +109,7 @@ def mainMenuScreen(window):
     manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
 
     button_sound_effect = pygame.mixer.Sound('buttonsfx.wav')
-    json_file = open("env.json", "r+")
-    options_dict = json.load(json_file)
-    if options_dict["sound_effects"] == "Off":
-        button_sound_effect.set_volume(0)
+    soundVolumeCheck(button_sound_effect)
 
     start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - window.get_width()//6, 6*window.get_height()//16), (window.get_width()//3, window.get_height()//8)),
                                              text='Start Game',
@@ -160,8 +156,6 @@ def mainMenuScreen(window):
                     status_check = button_to_status[event.ui_element](window)
                     if status_check != "back":
                         return status_check
-                    json_file = open("env.json", "r+")
-                    options_dict = json.load(json_file)
                     manager.set_window_resolution((window.get_width(), window.get_height()))
                     start_button.set_dimensions((window.get_width()//3, window.get_height()//8))
                     option_button.set_dimensions((window.get_width()//3, window.get_height()//8))
@@ -174,10 +168,7 @@ def mainMenuScreen(window):
                     quit_button.ui_container.set_dimensions((window.get_width(), window.get_height()))
                     textRect.center = (window.get_width()//2, window.get_height()//6)
                     image_rect.center = (window.get_width()//2, window.get_height()//4)
-                    if options_dict["sound_effects"] == "Off":
-                        button_sound_effect.set_volume(0)
-                    elif options_dict["sound_effects"] == "On":
-                        button_sound_effect.set_volume(1)
+                    soundVolumeCheck(button_sound_effect)
             manager.process_events(event)
 
         
@@ -198,8 +189,7 @@ def optionsScreen(window):
     button_sound_effect = pygame.mixer.Sound('buttonsfx.wav')
     json_file = open("env.json", "r+")
     options_dict = json.load(json_file)
-    if options_dict["sound_effects"] == "Off":
-        button_sound_effect.set_volume(0)
+    soundVolumeCheck(button_sound_effect)
 
     temp_list_screen_size = ["800x600", "1024x768", "Fullscreen"]
 
