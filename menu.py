@@ -20,7 +20,12 @@ def level_select_menu(window):
     level_select_txt = font.render("Level Select", True, (100, 100, 0))
     textRect1 = level_select_txt.get_rect()
     textRect1.center = (window.get_width()//2, window.get_height()//12)
+    json_file = open("env.json", "r+")
+    options_dict = json.load(json_file)
     button_sound_effect = pygame.mixer.Sound('buttonsfx.wav')
+    if options_dict["sound_effects"] == "Off":
+        button_sound_effect.set_volume(0)
+
     index = 0
     entries = os.listdir('level/')
     number_of_levels = len(entries) - 1
@@ -105,7 +110,10 @@ def mainMenuScreen(window):
     manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
 
     button_sound_effect = pygame.mixer.Sound('buttonsfx.wav')
-
+    json_file = open("env.json", "r+")
+    options_dict = json.load(json_file)
+    if options_dict["sound_effects"] == "Off":
+        button_sound_effect.set_volume(0)
 
     start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - window.get_width()//6, 6*window.get_height()//16), (window.get_width()//3, window.get_height()//8)),
                                              text='Start Game',
@@ -182,6 +190,8 @@ def optionsScreen(window):
     manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
 
     button_sound_effect = pygame.mixer.Sound('buttonsfx.wav')
+    if options_dict["sound_effects"] == "Off":
+        button_sound_effect.set_volume(0)
 
     json_file = open("env.json", "r+")
     options_dict = json.load(json_file)
@@ -276,6 +286,10 @@ def gameMenuScreen(window):
     manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
 
     button_sound_effect = pygame.mixer.Sound('buttonsfx.wav')
+    json_file = open("env.json", "r+")
+    options_dict = json.load(json_file)
+    if options_dict["sound_effects"] == "Off":
+        button_sound_effect.set_volume(0)
 
 
     level_select_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - window.get_width()//6, window.get_height()//4), (window.get_width()//3, window.get_height()//8)),
@@ -329,6 +343,11 @@ def gameMenuScreen(window):
 def help_menu(window):
     manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
     button_sound_effect = pygame.mixer.Sound('buttonsfx.wav')
+    json_file = open("env.json", "r+")
+    options_dict = json.load(json_file)
+    if options_dict["sound_effects"] == "Off":
+        button_sound_effect.set_volume(0)
+
     back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((12* window.get_width()//16, 9*window.get_height()//10), (3*window.get_width()//16, window.get_height()//16)),
                                             text='Back',
                                             manager=manager)
