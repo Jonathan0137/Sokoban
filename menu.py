@@ -160,6 +160,8 @@ def mainMenuScreen(window):
                     status_check = button_to_status[event.ui_element](window)
                     if status_check != "back":
                         return status_check
+                    json_file = open("env.json", "r+")
+                    options_dict = json.load(json_file)
                     manager.set_window_resolution((window.get_width(), window.get_height()))
                     start_button.set_dimensions((window.get_width()//3, window.get_height()//8))
                     option_button.set_dimensions((window.get_width()//3, window.get_height()//8))
@@ -171,7 +173,11 @@ def mainMenuScreen(window):
                     option_button.ui_container.set_dimensions((window.get_width(), window.get_height()))
                     quit_button.ui_container.set_dimensions((window.get_width(), window.get_height()))
                     textRect.center = (window.get_width()//2, window.get_height()//6)
-                    image_rect.center = (window.get_width()//2, window.get_height()//4) 
+                    image_rect.center = (window.get_width()//2, window.get_height()//4)
+                    if options_dict["sound_effects"] == "Off":
+                        button_sound_effect.set_volume(0)
+                    elif options_dict["sound_effects"] == "On":
+                        button_sound_effect.set_volume(1)
             manager.process_events(event)
 
         
@@ -190,11 +196,10 @@ def optionsScreen(window):
     manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
 
     button_sound_effect = pygame.mixer.Sound('buttonsfx.wav')
-    if options_dict["sound_effects"] == "Off":
-        button_sound_effect.set_volume(0)
-
     json_file = open("env.json", "r+")
     options_dict = json.load(json_file)
+    if options_dict["sound_effects"] == "Off":
+        button_sound_effect.set_volume(0)
 
     temp_list_screen_size = ["800x600", "1024x768", "Fullscreen"]
 
@@ -242,9 +247,11 @@ def optionsScreen(window):
                         if options_dict["sound_effects"] == "On":
                             options_dict["sound_effects"] = "Off"
                             sound_effects_option_button.set_text("Sound Effects: Off")
+                            button_sound_effect.set_volume(0)
                         else:
                             options_dict["sound_effects"] = "On"
                             sound_effects_option_button.set_text("Sound Effects: On")
+                            button_sound_effect.set_volume(1)
                     elif event.ui_element == music_option_button:
                         if options_dict["music"] == "On":
                             options_dict["music"] = "Off"
