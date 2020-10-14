@@ -15,13 +15,16 @@ def exitGame(window):
     return "exit"
 
 def level_select_menu(window):
+
+    font = pygame.font.Font('freesansbold.ttf', 32)  
+    level_select_txt = font.render("Level Select", True, (100, 100, 0))
+    textRect1 = level_select_txt.get_rect()
+    textRect1.center = (window.get_width()//2, window.get_height()//12)
+
     index = 0
     entries = os.listdir('level/')
     number_of_levels = len(entries) - 1
     manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
-
-    background_image_file = open("menubackground.png")
-    background_image = pygame.image.load(background_image_file) #LOADS BACKGROUND IMAGE
 
     back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((99* window.get_width()//128, 293*window.get_height()//320), (3*window.get_width()//16, window.get_height()//16)),
                                             text='Back',
@@ -40,7 +43,6 @@ def level_select_menu(window):
     
 
     clock = pygame.time.Clock()
-    window.blit(background_image, (0,0))
     while True: #THE LOOP THAT DOES THE CONSTANT USER INPUT CHECKS AND DRAWS
         pygame.time.delay(10) #This is the function that creates a time delay of x milliseconds
         time_delta = clock.tick(60)/1000.0
@@ -51,9 +53,9 @@ def level_select_menu(window):
         textRect.center = (window.get_width()//2, window.get_height()//6)
 
         #DRAWS THE SELECTED LEVEL
-        window.blit(text, textRect)
+        
         myLevel = Level(index)
-        myLevel.draw_level_preview(window) 
+        
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -63,12 +65,12 @@ def level_select_menu(window):
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     if event.ui_element == left_button:
                         index = index - 1
-                        window.blit(background_image, (0,0))
+                        window.fill((211, 235, 217))
                         if index < 0:
                             index = number_of_levels
                     elif event.ui_element == right_button:
                         index = index + 1
-                        window.blit(background_image, (0,0))
+                        window.fill((211, 235, 217))
                         if index > number_of_levels:
                             index = 0
                     elif event.ui_element == back_button:
@@ -76,8 +78,12 @@ def level_select_menu(window):
                     elif event.ui_element == play_button:
                         return "InGame/" + str(index)
             manager.process_events(event)
-
-        
+        window.fill((211, 235, 217))
+        manager.update(time_delta)
+        manager.draw_ui(window)
+        window.blit(level_select_txt, textRect1)
+        window.blit(text, textRect)
+        myLevel.draw_level_preview(window) 
         manager.update(time_delta)
         manager.draw_ui(window)
         pygame.display.update()
@@ -85,13 +91,20 @@ def level_select_menu(window):
 """Function draws the main menu screen"""
 def mainMenuScreen(window):
 
+    sokoban_logo = pygame.image.load("pic\playerFace.png")
+    image_rect = sokoban_logo.get_rect()
+    image_rect.center = (window.get_width()//2, window.get_height()//4) 
+
+    font = pygame.font.Font('freesansbold.ttf', 32)  
+    sokoban_txt = font.render("SOKOBAN", True, (100, 100, 0))
+    textRect = sokoban_txt.get_rect()
+    textRect.center = (window.get_width()//2, window.get_height()//6)
+    
+
     manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
 
-    background_image_file = open("menubackground.png")
-    background_image = pygame.image.load(background_image_file) #LOADS BACKGROUND IMAGE
-
-    #pygame.mixer.music.load('Journey.mp3') #LOADS MUSIC
-    #pygame.mixer.music.play(-1) #PLAYS MUSIC -1 MEANS IN LOOP
+    pygame.mixer.music.load('buttonsfx.wav') #LOADS MUSIC
+    #pygame.mixer.music.play(1) #PLAYS MUSIC -1 MEANS IN LOOP
 
 
     start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - window.get_width()//6, 6*window.get_height()//16), (window.get_width()//3, window.get_height()//8)),
@@ -135,6 +148,7 @@ def mainMenuScreen(window):
             #CHECKS BUTTON INPUT
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    pygame.mixer.music.play(1)
                     status_check = button_to_status[event.ui_element](window)
                     if status_check != "back":
                         return status_check
@@ -148,14 +162,14 @@ def mainMenuScreen(window):
                     start_button.ui_container.set_dimensions((window.get_width(), window.get_height()))
                     option_button.ui_container.set_dimensions((window.get_width(), window.get_height()))
                     quit_button.ui_container.set_dimensions((window.get_width(), window.get_height()))
-                    start_button.rebuild()
-                    option_button.rebuild()
-                    quit_button.rebuild()
+                    textRect.center = (window.get_width()//2, window.get_height()//6)
+                    image_rect.center = (window.get_width()//2, window.get_height()//4) 
             manager.process_events(event)
 
         
-        window.fill((0,0,0))
-        window.blit(background_image, (0,0)) #DRAWS THE BACKGROUND IMAGE
+        window.fill((211, 235, 217))
+        window.blit(sokoban_txt, textRect)
+        window.blit(sokoban_logo, image_rect)
         manager.update(time_delta)
         manager.draw_ui(window)
         pygame.display.update()
@@ -170,13 +184,15 @@ def optionsScreen(window):
     #pygame.mixer.music.load('mainmenusong.wav') #LOADS MUSIC
     #pygame.mixer.music.play(-1) #PLAYS MUSIC -1 MEANS IN LOOP
 
-    background_image_file = open("menubackground.png")
-    background_image = pygame.image.load(background_image_file)
-
     json_file = open("env.json", "r+")
     options_dict = json.load(json_file)
 
     temp_list_screen_size = ["800x600", "1024x768", "Fullscreen"]
+
+    font = pygame.font.Font('freesansbold.ttf', 32)  
+    option_txt = font.render("Options", True, (100, 100, 0))
+    textRect = option_txt.get_rect()
+    textRect.center = (window.get_width()//2, window.get_height()//12)
 
         
 
@@ -248,8 +264,8 @@ def optionsScreen(window):
                 json_file.truncate()
             manager.process_events(event)
 
-        window.fill((255,255,255))
-        window.blit(background_image, (0,0))
+        window.fill((211, 235, 217))
+        window.blit(option_txt, textRect)
         manager.update(time_delta)
         manager.draw_ui(window)
         pygame.display.update()
@@ -257,9 +273,6 @@ def optionsScreen(window):
 """Game menu selection"""
 def gameMenuScreen(window):
     manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
-
-    background_image_file = open("menubackground.png")
-    background_image = pygame.image.load(background_image_file) #LOADS BACKGROUND IMAGE
 
     #pygame.mixer.music.load('Journey.mp3') #LOADS MUSIC
     #pygame.mixer.music.play(-1) #PLAYS MUSIC -1 MEANS IN LOOP
@@ -306,8 +319,7 @@ def gameMenuScreen(window):
                             return current_status
             manager.process_events(event)
 
-        window.fill((255,196,0))
-        window.blit(background_image, (0,0))
+        window.fill((211, 235, 217))
         manager.update(time_delta)
         manager.draw_ui(window)
         pygame.display.update()
@@ -315,9 +327,6 @@ def gameMenuScreen(window):
 
 def help_menu(window):
     manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
-
-    background_image_file = open("menubackground.png")
-    background_image = pygame.image.load(background_image_file) #LOADS BACKGROUND IMAGE
 
     back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((12* window.get_width()//16, 9*window.get_height()//10), (3*window.get_width()//16, window.get_height()//16)),
                                             text='Back',
