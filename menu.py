@@ -20,7 +20,7 @@ def level_select_menu(window):
     level_select_txt = font.render("Level Select", True, (100, 100, 0))
     textRect1 = level_select_txt.get_rect()
     textRect1.center = (window.get_width()//2, window.get_height()//12)
-
+    button_sound_effect = pygame.mixer.Sound('buttonsfx.wav')
     index = 0
     entries = os.listdir('level/')
     number_of_levels = len(entries) - 1
@@ -63,6 +63,7 @@ def level_select_menu(window):
             #CHECKS BUTTON INPUT
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    button_sound_effect.play()
                     if event.ui_element == left_button:
                         index = index - 1
                         window.fill((211, 235, 217))
@@ -103,8 +104,7 @@ def mainMenuScreen(window):
 
     manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
 
-    pygame.mixer.music.load('buttonsfx.wav') #LOADS MUSIC
-    #pygame.mixer.music.play(1) #PLAYS MUSIC -1 MEANS IN LOOP
+    button_sound_effect = pygame.mixer.Sound('buttonsfx.wav')
 
 
     start_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - window.get_width()//6, 6*window.get_height()//16), (window.get_width()//3, window.get_height()//8)),
@@ -148,7 +148,7 @@ def mainMenuScreen(window):
             #CHECKS BUTTON INPUT
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    pygame.mixer.music.play(1)
+                    button_sound_effect.play()
                     status_check = button_to_status[event.ui_element](window)
                     if status_check != "back":
                         return status_check
@@ -181,8 +181,7 @@ def mainMenuScreen(window):
 def optionsScreen(window):
     manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
 
-    #pygame.mixer.music.load('mainmenusong.wav') #LOADS MUSIC
-    #pygame.mixer.music.play(-1) #PLAYS MUSIC -1 MEANS IN LOOP
+    button_sound_effect = pygame.mixer.Sound('buttonsfx.wav')
 
     json_file = open("env.json", "r+")
     options_dict = json.load(json_file)
@@ -226,6 +225,7 @@ def optionsScreen(window):
             #CHECKS BUTTON INPUT
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    button_sound_effect.play()
                     if event.ui_element == back_button:
                         return "back"
                     elif event.ui_element == sound_effects_option_button:
@@ -243,6 +243,7 @@ def optionsScreen(window):
                             options_dict["music"] = "On"
                             music_option_button.set_text("Music: On")
                 elif event.user_type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:
+                    button_sound_effect.play()
                     options_dict["resolution"] = event.text
                     json.dump(options_dict, json_file)
                     json_file.truncate()
@@ -274,8 +275,7 @@ def optionsScreen(window):
 def gameMenuScreen(window):
     manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
 
-    #pygame.mixer.music.load('Journey.mp3') #LOADS MUSIC
-    #pygame.mixer.music.play(-1) #PLAYS MUSIC -1 MEANS IN LOOP
+    button_sound_effect = pygame.mixer.Sound('buttonsfx.wav')
 
 
     level_select_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((window.get_width()//2 - window.get_width()//6, window.get_height()//4), (window.get_width()//3, window.get_height()//8)),
@@ -311,6 +311,7 @@ def gameMenuScreen(window):
             #CHECKS BUTTON INPUT
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    button_sound_effect.play()
                     if event.ui_element == back_button:
                         return "back"
                     else:
@@ -327,7 +328,7 @@ def gameMenuScreen(window):
 
 def help_menu(window):
     manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
-
+    button_sound_effect = pygame.mixer.Sound('buttonsfx.wav')
     back_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((12* window.get_width()//16, 9*window.get_height()//10), (3*window.get_width()//16, window.get_height()//16)),
                                             text='Back',
                                             manager=manager)
@@ -349,12 +350,11 @@ def help_menu(window):
             #CHECKS BUTTON INPUT
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-                    #current_status = button_to_status[event.ui_element]
+                    button_sound_effect.play()
                     return "back"
             manager.process_events(event)
 
 
-        #window.blit(background_image, (0,0))
 
         manager.update(time_delta)
         manager.draw_ui(window)
