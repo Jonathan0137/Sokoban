@@ -26,7 +26,7 @@ N for next level
 Q for quit to main menu 
 
 
-# Sokoban rules:
+# Sokoban rules
 
 The goal of the sokoban game is to push all of the boxes onto the goals.
 
