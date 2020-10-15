@@ -18,7 +18,9 @@ def draw_game_based_on_status(status, window):
 pygame.init()
 
 window = initWindow()
+programIcon = pygame.image.load('pic/playerFace.png')
 
+pygame.display.set_icon(programIcon)
 pygame.display.set_caption("Sokoban")
 
 game_status_dictionary = {
