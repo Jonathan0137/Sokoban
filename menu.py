@@ -10,8 +10,12 @@ from soundeffect import *
 
 pygame.init()
 
-"""Exit game"""
+
 def exitGame(window):
+    """returns exit statement to exit menu stack
+    Args:
+        window (pygame.display): window to draw on
+    """
     return "exit"
 
 def level_select_menu(window):
@@ -93,9 +97,13 @@ def level_select_menu(window):
         manager.draw_ui(window)
         pygame.display.update()
 
-"""Function draws the main menu screen"""
-def mainMenuScreen(window):
 
+def mainMenuScreen(window):
+    """draws main menu on the given window
+    
+    Args:
+        window (pygame.display): window to draw on
+    """
     sokoban_logo = pygame.image.load("pic\playerFace.png")
     image_rect = sokoban_logo.get_rect()
     image_rect.center = (window.get_width()//2, window.get_height()//4) 
@@ -182,8 +190,12 @@ def mainMenuScreen(window):
     return "exit"
 
 
-"""Options screen"""
 def optionsScreen(window):
+    """draws option menu on the given window
+
+    Args:
+        window (pygame.display): window to draw on
+    """
     manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
 
     button_sound_effect = pygame.mixer.Sound('buttonsfx.wav')
@@ -282,8 +294,13 @@ def optionsScreen(window):
         manager.draw_ui(window)
         pygame.display.update()
 
-"""Game menu selection"""
+
 def gameMenuScreen(window):
+    """draws game menu on the given window
+
+    Args:
+        window (pygame.display): window to draw on
+    """
     manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
 
     button_sound_effect = pygame.mixer.Sound('buttonsfx.wav')
@@ -342,6 +359,11 @@ def gameMenuScreen(window):
 
 
 def help_menu(window):
+    """draws help page on the given window
+
+    Args:
+        window (pygame.display): window to draw on
+    """
     manager = pygame_gui.UIManager((window.get_width(), window.get_height()))
     button_sound_effect = pygame.mixer.Sound('buttonsfx.wav')
     json_file = open("env.json", "r+")
