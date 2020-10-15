@@ -3,6 +3,8 @@ import pygame
     
     
 def soundEffect():
+    """This is a function that plays the box moving sound when a box is pushed
+    """
     json_file = open("env.json", "r")
     options_dict = json.load(json_file)
     if(options_dict["sound_effects"] == "On"):
@@ -11,6 +13,11 @@ def soundEffect():
 
 
 def soundVolumeCheck(sound_object):
+    """This is a function that plays the button pressing sound when a button is pressed
+
+    Args:
+        sound_object (pygame.mixer): the sound
+    """
     json_file = open("env.json", "r")
     options_dict = json.load(json_file)
     if(options_dict["sound_effects"] == "Off"):

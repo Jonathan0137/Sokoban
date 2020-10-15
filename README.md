@@ -3,6 +3,8 @@ A simple Sokoban game build using pygame
 
 credit for asset pictures: https://opengameart.org/content/sokoban-100-tiles
 
+credit for background music: https://freesound.org/people/Michael-DB/sounds/489035/
+
 game made by: **Chongmin Bai** and **Tom Daudelin**
 
 # To Run Game on Source Code

@@ -83,6 +83,11 @@ class Level(object):
                     count = count + 1
         return count
     def draw_level_preview(self, window):
+        """This is a function that draws preview level for the level select screen.
+
+        Args:
+            window (pygame.Surface): a place where we draw the game on
+        """
         box_size = 40   #sprite is 64 by 64
         w, h = pygame.display.get_surface().get_size()
 

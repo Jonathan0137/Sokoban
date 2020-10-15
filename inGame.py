@@ -4,6 +4,14 @@ from Level import Level
 
 
 def inGameScreen(arg):
+    """This is a function for the in game screen
+
+    Args:
+        arg (): an argument that has the pygame window as it's first index and int level number as the second
+
+    Returns:
+        [string]: return the string that rep the next stage the game goes to.
+    """
 
     window = arg[0]
     level_num = arg[1]
@@ -16,7 +24,7 @@ def inGameScreen(arg):
     currentLevel = int(level_num)
     myLevel = Level(currentLevel)
 
-    font = pygame.font.SysFont('arial', 20, True)
+    font = pygame.font.SysFont('freesansbold.ttf', 20, True)
     clock = pygame.time.Clock()
 
     run = True
@@ -60,26 +68,26 @@ def inGameScreen(arg):
             elif keys[pygame.K_n]: # skip this level
                 currentLevel = myLevel.getCurrentLevel() + 1
                 if(currentLevel == 30):
-                    print("GameOver")
+                    #print("GameOver")
                     run = False
                     return "MainMenu"
-                print("Current Level = " + str(currentLevel))
+                #print("Current Level = " + str(currentLevel))
                 window = arg[0]
                 myLevel = Level(currentLevel)
                 number_of_moves = 0
             elif keys[pygame.K_q]: # back to main menu
-                print("Back")
+                #print("Back")
                 run = False
                 return "MainMenu"
 
             if(myLevel.LevelComplete() == True):
-                print("LEVEL " + str(currentLevel) + " COMPLETE")
+                #print("LEVEL " + str(currentLevel) + " COMPLETE")
                 currentLevel = myLevel.getCurrentLevel() + 1
                 window = arg[0]
                 myLevel = Level(currentLevel)
                 number_of_moves = 0
             if(currentLevel == 30):
-                print("GameOver")
+                #print("GameOver")
                 run = False
                 return "MainMenu"
 

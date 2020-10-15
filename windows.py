@@ -3,6 +3,11 @@ import json
 
 
 def initWindow():
+    """Create a new pygame surface object and return it
+
+    Returns:
+        window (pygame.Surface): window to draw on
+    """
     json_file = open("env.json", "r")
     options_dict = json.load(json_file)
     if(options_dict["resolution"] == "Fullscreen"):
@@ -15,6 +20,11 @@ def initWindow():
     return window
 
 def resizeWindow(window):
+    """Change the windows size base on the env.json
+
+    Args:
+        window (pygame.Surface): window to draw on
+    """
     json_file = open("env.json", "r")
     options_dict = json.load(json_file)
     if(options_dict["resolution"] == "Fullscreen"):

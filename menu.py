@@ -377,6 +377,11 @@ def help_menu(window):
         pygame.display.update()
 
 def how_to_play_box(window):
+    """This function has everything for the how to play section of the option
+
+    Args:
+        window (pygame.Surface): a place where we draw the game on
+    """
     starting_location = (window.get_width()//12, window.get_height()//15)
 
     Header_font = pygame.font.Font('freesansbold.ttf', 32)  
