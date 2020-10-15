@@ -7,8 +7,14 @@ from Level import Level
 from soundeffect import *
 
 
-"""Dynamic Function calling"""
+
 def draw_game_based_on_status(status, window):
+    """Dynamic Function calling for drawing correct screen based on status
+    
+    Args:
+        status (str): the current status name
+        window (pygame.display): window to draw on
+    """
     arg = window
     if (len(status.split("/")) == 2):
         arg = [window, status.split("/")[1]]

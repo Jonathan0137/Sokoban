@@ -26,6 +26,8 @@ def soundVolumeCheck(sound_object):
         sound_object.set_volume(1)
 
 def musicCheck():
+    """Plays or stops music based on value stored in env.json
+    """
     json_file = open("env.json", "r")
     options_dict = json.load(json_file)
     if (options_dict["music"] == "Off"):
