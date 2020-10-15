@@ -4,6 +4,7 @@ from windows import *
 from inGame import *
 from worker import worker
 from Level import Level
+from soundeffect import *
 
 
 """Dynamic Function calling"""
@@ -32,6 +33,8 @@ clock = pygame.time.Clock()
 game_status = "MainMenu"
 while game_status != "exit":
     clock.tick(27) #refresh rate
+    pygame.mixer.music.load("backgroundmusic.wav")
+    musicCheck()
     game_status = draw_game_based_on_status(game_status, window) #load main menu
     
 
