@@ -7,6 +7,11 @@ credit for background music: https://freesound.org/people/Michael-DB/sounds/4890
 
 game made by: **Chongmin Bai** and **Tom Daudelin**
 
+# To Run Game in Windows
+
+open sokoban.exe to play
+
+
 # To Run Game on Source Code
 pip install pygame
 
