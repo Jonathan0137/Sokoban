@@ -24,3 +24,11 @@ def soundVolumeCheck(sound_object):
         sound_object.set_volume(0)
     else:
         sound_object.set_volume(1)
+
+def musicCheck():
+    json_file = open("env.json", "r")
+    options_dict = json.load(json_file)
+    if (options_dict["music"] == "Off"):
+        pygame.mixer.music.stop()
+    else:
+        pygame.mixer.music.play(-1)

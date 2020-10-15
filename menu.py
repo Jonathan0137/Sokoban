@@ -249,6 +249,9 @@ def optionsScreen(window):
                         else:
                             options_dict["music"] = "On"
                             music_option_button.set_text("Music: On")
+                        json.dump(options_dict, json_file)
+                        json_file.truncate()
+                        musicCheck()
                 elif event.user_type == pygame_gui.UI_DROP_DOWN_MENU_CHANGED:
                     button_sound_effect.play()
                     options_dict["resolution"] = event.text
@@ -268,6 +271,7 @@ def optionsScreen(window):
                     sound_effects_option_button.ui_container.set_dimensions((window.get_width(), window.get_height()))
                     back_button.ui_container.set_dimensions((window.get_width(), window.get_height()))
                     window_resize_button.ui_container.set_dimensions((window.get_width(), window.get_height()))
+                    textRect.center = (window.get_width()//2, window.get_height()//12)
                 json.dump(options_dict, json_file)
                 json_file.truncate()
             manager.process_events(event)
