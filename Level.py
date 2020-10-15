@@ -1,5 +1,6 @@
-from pygame import image as img
 import pygame
+from pygame import image as img
+
 class Level(object):
 
     matrix = []     #stores matrix got from the txt file

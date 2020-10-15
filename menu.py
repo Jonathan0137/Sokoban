@@ -16,7 +16,7 @@ def exitGame(window):
 
 def level_select_menu(window):
 
-    font = pygame.font.Font('freesansbold.ttf', 32)  
+    font = pygame.font.Font('./freesansbold.ttf', 32)  
     level_select_txt = font.render("Level Select", True, (100, 100, 0))
     textRect1 = level_select_txt.get_rect()
     textRect1.center = (window.get_width()//2, window.get_height()//12)
@@ -43,7 +43,7 @@ def level_select_menu(window):
                                             text='<--',
                                             manager=manager)
     
-    font = pygame.font.Font('freesansbold.ttf', 32)  
+    font = pygame.font.Font('./freesansbold.ttf', 32)  
     
 
     clock = pygame.time.Clock()
@@ -100,7 +100,7 @@ def mainMenuScreen(window):
     image_rect = sokoban_logo.get_rect()
     image_rect.center = (window.get_width()//2, window.get_height()//4) 
 
-    font = pygame.font.Font('freesansbold.ttf', 32)  
+    font = pygame.font.Font('./freesansbold.ttf', 32)  
     sokoban_txt = font.render("SOKOBAN", True, (100, 100, 0))
     textRect = sokoban_txt.get_rect()
     textRect.center = (window.get_width()//2, window.get_height()//6)
@@ -193,7 +193,7 @@ def optionsScreen(window):
 
     temp_list_screen_size = ["800x600", "1024x768", "Fullscreen"]
 
-    font = pygame.font.Font('freesansbold.ttf', 32)  
+    font = pygame.font.Font('./freesansbold.ttf', 32)  
     option_txt = font.render("Options", True, (100, 100, 0))
     textRect = option_txt.get_rect()
     textRect.center = (window.get_width()//2, window.get_height()//12)
@@ -388,8 +388,8 @@ def how_to_play_box(window):
     """
     starting_location = (window.get_width()//12, window.get_height()//15)
 
-    Header_font = pygame.font.Font('freesansbold.ttf', 32)  
-    font = pygame.font.SysFont('freesansbold.ttf', 25)
+    Header_font = pygame.font.Font('./freesansbold.ttf', 32)
+    font = pygame.font.Font('./freesansbold.ttf', 25)
 
     sokoban_txt = Header_font.render("Control For Sokoban", True, (100, 100, 0))
     explain_1 = font.render("- Arrow keys for player movement", 1, (0,0,0))

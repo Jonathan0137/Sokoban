@@ -24,7 +24,7 @@ def inGameScreen(arg):
     currentLevel = int(level_num)
     myLevel = Level(currentLevel)
 
-    font = pygame.font.SysFont('freesansbold.ttf', 25, True)
+    font = pygame.font.Font('./freesansbold.ttf', 20)
     clock = pygame.time.Clock()
 
     run = True
