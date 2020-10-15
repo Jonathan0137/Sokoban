@@ -26,7 +26,7 @@ N for next level
 Q for quit to main menu 
 
 
-# Sokoban rules:
+# Sokoban rules
 
 The goal of the sokoban game is to push all of the boxes onto the goals.
 
@@ -34,3 +34,17 @@ The goal of the sokoban game is to push all of the boxes onto the goals.
 * A box cannot be pulled.
 * The player cannot walk through boxes or walls.
 * The puzzle is solved when all boxes are on the goals.
+
+# Screenshots
+
+Screenshot of the menu
+
+!["Screenshot of the menu"](pic/menu.png?raw=true "Screenshot of the menu") 
+
+Screenshot of the level select menu
+
+!["Screenshot of the level select menu"](pic/levelselect.png?raw=true "Screenshot of the level select menu") 
+
+Screenshot of the game
+
+!["Screenshot of the game"](pic/game.png?raw=true "Screenshot of the game") 
