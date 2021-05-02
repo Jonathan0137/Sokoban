@@ -13,18 +13,18 @@ open sokoban.exe to play
 
 
 # To Run Game on Source Code
-pip install pygame
+pip3 install pygame
 
-pip install pygame_gui
+pip3 install pygame_gui
 
-python sokoban.py
+python3 sokoban.py
 
 
 # Control For Sokoban
 
 Arrow keys for player movement
 
-U for restart level 
+R for restart level 
 
 N for next level 
 
