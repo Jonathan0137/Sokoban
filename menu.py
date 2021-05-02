@@ -104,7 +104,7 @@ def mainMenuScreen(window):
     Args:
         window (pygame.display): window to draw on
     """
-    sokoban_logo = pygame.image.load("pic\playerFace.png")
+    sokoban_logo = pygame.image.load("pic/playerFace.png")
     image_rect = sokoban_logo.get_rect()
     image_rect.center = (window.get_width()//2, window.get_height()//4) 
 
