@@ -1,6 +1,6 @@
 # To Do
 
-Add a shell script that automatically runs the game and downloads all necessary dependencies for Mac.
+- [ ] Add a shell script that automatically runs the game and downloads all necessary dependencies for Mac.
 
 # Sokoban
 A simple Sokoban game build using pygame
